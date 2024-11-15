@@ -3,27 +3,34 @@ const path = require('path');
 const app = express()
 const port = 3000
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, path, stat) => {
+      console.log(`Serving static file: ${path}`);
+  }
+}));
 
-//template ejs
-app.set('view engine', 'ejs');
 
-
+// Route untuk halaman utama
 app.get('/', (req, res) => {
-  // res.sendFile('./index.html', { root: __dirname});
-  //res.send('Hello World!')
-  res.render('index', {nama:'Marvinn', title:'halaman home'});
-})
-app.get('/about', (req, res) => {
-  // res.send('about')
-  // res.sendFile('./about.html', { root: __dirname});
-  res.render('about', {title:'halaman about'});
-})
-app.get('/info', (req, res) => {
-  // res.send('about')
-  // res.sendFile('./info.html', { root: __dirname});
-  res.render('info', {title:'halaman info'});
-})
+  res.sendFile(path.join(__dirname, 'views', 'home.html'));
+});
+
+// Route untuk halaman utama
+app.get('/menu', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'menu.html'));
+});
+
+// Route untuk halaman utama
+app.get('/training', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'training.html'));
+});
+
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'login', 'login-and-signin.html'));
+});
+
+
 
 app.use('/', (req, res)=> {
     res.status(404)
@@ -34,4 +41,3 @@ app.listen(port, () => {
   console.log(`http://localhost:${port}`)
 })
 
-app.use(express.static(path.join(__dirname, 'public')));
