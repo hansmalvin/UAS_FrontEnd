@@ -1,0 +1,95 @@
+
+  /* Font untuk tulisan tangan */
+.DancingScript {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+  }
+
+  /* Start Navbar */
+  .navbar a {
+    color: #D2B48B; 
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar a:hover {
+    color: gold;
+  }
+
+  .navbar .nav-item .nav-link.active {
+    color: blanchedalmond;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  nav {
+    background-color: #7B0005;
+  }
+  /* End Navbar */
+
+
+
+
+
+
+
+
+  
+  /* Start Main Content */
+
+
+
+  /* End Main Content */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  /* Start Footer */
+  .footer-container {
+    background-color: #FFF6E3;
+  }
+  
+  .footer-title {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #7B0005;
+  }
+  
+  .footer-text {
+    color: #913436;
+  }
+  
+  .footer-link {
+    color: #E6782B;
+    text-decoration: none;
+  }
+  
+  .footer-link:hover {
+    color: #913436;
+    text-decoration: none;
+  }
+  
+  .footer-table {
+    border-color: #913436;
+  }
+  
+  .footer-copyright {
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.4rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #913436;
+  }
+  
+
+  /* End Footer */
+  
