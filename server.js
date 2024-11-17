@@ -2,10 +2,20 @@ const { MongoClient, ObjectId } = require('mongodb'); // Add ObjectId import
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+// const session = require('express-session');
+// const app = express();
+
+// const UserModel = require('./src/models/users-schema');
+
+// app.use(session({
+//   secret: 'your-secret-key',
+//   resave: false,
+//   saveUninitialized: false,
+// }));
 
 const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
-const dbName = 'npm'; // diganti sesuaiin aja
+const dbName = 'npm'; // diganti nanti sama dotenv
 
 async function main() {
   await client.connect();
