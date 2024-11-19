@@ -1,8 +1,13 @@
-require('dotenv').config();
 const { MongoClient, ObjectId } = require('mongodb');
 const express = require('express');
-const bodyParser = require('body-parser');
+const session = require("express-session");
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const MongoDBSession = require("connect-mongodb-session")(session);
+const bcrypt = require("bcryptjs")
+require('dotenv').config();
+
+const app = express();
 
 const url = process.env.DB_CONNECTION; // Ambil URL MongoDB dari .env
 const dbName = process.env.DB_NAME; // Ambil nama database dari .env
@@ -22,8 +27,8 @@ async function main() {
 
   // Create
   app.post('/users', async (req, res) => {
-    const { name, email } = req.body;
-    await collection.insertOne({ name, email });
+    const { username, email, password } = req.body;
+    await collection.insertOne({ username, email, password });
     res.status(201).send('User created');
   });
 
@@ -36,11 +41,11 @@ async function main() {
   // Update
   app.put('/users/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, email } = req.body;
+    const { username, email } = req.body;
     try {
       const result = await collection.updateOne(
         { _id: new ObjectId(id) },
-        { $set: { name, email } }
+        { $set: { username, email } }
       );
       if (result.matchedCount === 0) {
         res.status(404).send('User not found');
