@@ -1,65 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  />
-  <link 
-    rel="stylesheet" 
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-  />
-  <link 
-  href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap" 
-  rel="stylesheet">
-  <link rel="stylesheet" href="/src/public/styles.css"
-  />
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand fw-bold DancingScript"  href="#">TaraFit</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS Owl Carousel -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
 
-      <button 
-      class="navbar-toggler ms-auto bg-light" 
-      type="button" 
-      data-bs-toggle="collapse" 
-      data-bs-target="#navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-      >
-      <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about" data-bs-toggle="tooltip" data-bs-placement="bottom" title="About">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Contact">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="/src/views/training.html" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Training">Training</a></li>
-          <li class="nav-item"><a class="nav-link" href="/src/views/menu.html" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Menu">Menu</a></li>
-          <li class="nav-item"><a class="btn btn-dark d-md-block d-none" href="#subs" role="button" data-bs-toggle="modal" data-bs-target="#subscriptionModal">Subscribe</a></li>
-        </ul>
+    <!-- JavaScript Owl Carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <link rel="stylesheet" href="/src/public/styles.css" />
+  </head>
+  <body>
+    <!-- Start Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand fw-bold DancingScript" href="#">TaraFit</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/training">Training</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Destinations</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
-  <!--  -->
+    </nav>
+    <!-- End Navbar -->
 
-  
+    <!-- =============================== -->
+    <!-- Start Main -->
+    <!-- =============================== -->
+    <main>
+      <!-- =============================== -->
+      <!-- Start Sectionn 1 -->
+      <!-- =============================== -->
+      <section class="section-1">
+        <div class="text-effect">
+          <span>REPUBLIC OF</span>
+          <span>MASCULINITY</span>
+        </div>
+      </section>
+      <!-- =============================== -->
+      <!-- End Section 1 -->
+      <!-- =============================== -->
 
-  <!-- Start Footer -->
-   
-    <!-- <footer class="footer-container">
+      <!-- =============================== -->
+      <!-- Start Sectionn 2 -->
+      <!-- =============================== -->
+      <section class="section-2">
+        <div class="container py-5">
+          <h1 class="text-center mb-4">GYM</h1>
+          <div class="owl-carousel owl-theme">
+            <!-- Card 1 -->
+            <div class="item">
+              <div class="custom-card" style="height: 300px">
+                <img src="image1.jpg" alt="Exhibition 1" class="card-img" />
+                <div
+                  class="card-overlay d-flex flex-column justify-content-between"
+                >
+                  <h5 class="text-white fw-bold">
+                    DISCOVER CONSTABLE & THE HAY WAIN
+                  </h5>
+                  <p class="text-white">17 October 2024 – 2 February 2025</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="item">
+              <div class="custom-card" style="height: 300px">
+                <img src="image2.jpg" alt="Exhibition 2" class="card-img" />
+                <div
+                  class="card-overlay d-flex flex-column justify-content-between"
+                >
+                  <h5 class="text-white fw-bold">THE LAST CARAVAGGIO</h5>
+                  <p class="text-white">18 April – 21 July 2024</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="item">
+              <div class="custom-card" style="height: 300px">
+                <img src="image3.jpg" alt="Exhibition 3" class="card-img" />
+                <div
+                  class="card-overlay d-flex flex-column justify-content-between"
+                >
+                  <h5 class="text-white fw-bold">
+                    WINSLOW HOMER: FORCE OF NATURE
+                  </h5>
+                  <p class="text-white">10 September 2022 – 8 January 2023</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="item">
+              <div class="custom-card" style="height: 300px">
+                <img src="image3.jpg" alt="Exhibition 3" class="card-img" />
+                <div
+                  class="card-overlay d-flex flex-column justify-content-between"
+                >
+                  <h5 class="text-white fw-bold">1</h5>
+                  <p class="text-white">10 September 2022 – 8 January 2023</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="item">
+              <div class="custom-card" style="height: 300px">
+                <img src="image3.jpg" alt="Exhibition 3" class="card-img" />
+                <div
+                  class="card-overlay d-flex flex-column justify-content-between"
+                >
+                  <h5 class="text-white fw-bold">2</h5>
+                  <p class="text-white">10 September 2022 – 8 January 2023</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="item">
+              <div class="custom-card" style="height: 300px">
+                <img src="image3.jpg" alt="Exhibition 3" class="card-img" />
+                <div
+                  class="card-overlay d-flex flex-column justify-content-between"
+                >
+                  <h5 class="text-white fw-bold">3</h5>
+                  <p class="text-white">10 September 2022 – 8 January 2023</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 7 -->
+            <div class="item">
+              <div class="custom-card" style="height: 300px">
+                <img src="image3.jpg" alt="Exhibition 3" class="card-img" />
+                <div
+                  class="card-overlay d-flex flex-column justify-content-between"
+                >
+                  <h5 class="text-white fw-bold">4</h5>
+                  <p class="text-white">10 September 2022 – 8 January 2023</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          $(document).ready(function () {
+            $(".owl-carousel").owlCarousel({
+              loop: true, // Carousel berulang
+              margin: 20, // Spasi antar item
+              nav: true, // Tombol navigasi
+              dots: true, // Titik navigasi
+              autoplay: true, // Otomatis bergeser
+              autoplayTimeout: 3000, // Interval waktu autoplay (ms)
+              autoplayHoverPause: true, // Pause ketika mouse hover
+              smartSpeed: 800, // Kecepatan transisi (ms)
+              fluidSpeed: true, // Mengikuti fluiditas user scroll
+              navSpeed: 800, // Kecepatan navigasi (ms)
+              responsive: {
+                0: { items: 1 }, // 1 item untuk layar kecil
+                768: { items: 2 }, // 2 item untuk tablet
+                1200: { items: 3 }, // 3 item untuk layar besar
+              },
+            });
+          });
+        </script>
+      </section>
+      <!-- =============================== -->
+      <!-- End Section 2 -->
+      <!-- =============================== -->
+
+      <!-- =============================== -->
+      <!-- Start Sectionn 3 -->
+      <!-- =============================== -->
+      <section class="section-3">
+        <div class="container">
+          <div class="row justify-content-center">
+            <!-- Single Counter -->
+            <div class="col-6 col-sm-3 single_counter text-center">
+              <div class="counter_inner p-3 p-md-0">
+                <!-- Counter Item -->
+                <div class="counter_item d-inline-block mb-3">
+                  <span id="count1" class="counter fw-bold">10</span>
+                  <span class="fw-bold">M</span>
+                </div>
+                <h5>Users</h5>
+              </div>
+            </div>
+            <!-- Single Counter -->
+            <div class="col-6 col-sm-3 single_counter text-center">
+              <div class="counter_inner p-3 p-md-0">
+                <!-- Counter Item -->
+                <div class="counter_item d-inline-block mb-3">
+                  <span id="count2" class="counter fw-bold">23</span>
+                  <span class="fw-bold">K</span>
+                </div>
+                <h5>Download</h5>
+              </div>
+            </div>
+            <!-- Single Counter -->
+            <div class="col-6 col-sm-3 single_counter text-center">
+              <div class="counter_inner p-3 p-md-0">
+                <!-- Counter Item -->
+                <div class="counter_item d-inline-block mb-3">
+                  <span id="count3" class="counter fw-bold">9</span>
+                  <span class="fw-bold">M</span>
+                </div>
+                <h5>Customer</h5>
+              </div>
+            </div>
+            <!-- Single Counter -->
+            <div class="col-6 col-sm-3 single_counter text-center">
+              <div class="counter_inner p-3 p-md-0">
+                <!-- Counter Item -->
+                <div class="counter_item d-inline-block mb-3">
+                  <span id="count4" class="counter fw-bold">12</span>
+                  <span class="fw-bold">K</span>
+                </div>
+                <h5>Developer</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            function counter(id, start, end, duration) {
+              let obj = document.getElementById(id),
+                current = start,
+                range = end - start,
+                increment = end > start ? 1 : -1,
+                step = Math.abs(Math.floor(duration / range)),
+                timer = setInterval(() => {
+                  current += increment;
+                  obj.textContent = current;
+                  if (current == end) {
+                    clearInterval(timer);
+                  }
+                }, step);
+            }
+
+            // Memanggil fungsi counter untuk elemen-elemen tertentu
+            counter("count1", 0, 10, 3000);
+            counter("count2", 100, 20, 4000);
+            counter("count3", 0, 30, 5000);
+            counter("count4", 0, 10, 3000);
+          });
+        </script>
+      </section>
+      <!-- =============================== -->
+      <!-- End Section 3 -->
+      <!-- =============================== -->
+
+      <!-- =============================== -->
+      <!-- Start Sectionn 4 -->
+      <!-- =============================== -->
+
+      <!-- =============================== -->
+      <!-- End Section 4 -->
+      <!-- =============================== -->
+
+      <!-- =============================== -->
+      <!-- Start Sectionn 5 -->
+      <!-- =============================== -->
+
+      <!-- =============================== -->
+      <!-- End Section 5 -->
+      <!-- =============================== -->
+    </main>
+    <!-- =============================== -->
+    <!-- End Main -->
+    <!-- =============================== -->
+
+    <!-- Start Footer -->
+
+    <footer class="footer-container">
       <div class="container p-4">
         <div class="row">
           <div class="col-lg-6 col-md-12 mb-4">
             <h5 class="footer-title">Footer Content</h5>
             <p class="footer-text">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-              molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-              voluptatem veniam, est atque cumque eum delectus sint!
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
+              atque ea quis molestias. Fugiat pariatur maxime quis culpa
+              corporis vitae repudiandae aliquam voluptatem veniam, est atque
+              cumque eum delectus sint!
             </p>
           </div>
           <div class="col-lg-3 col-md-6 mb-4">
@@ -96,14 +350,11 @@
           </div>
         </div>
       </div>
-      <div class="footer-copyright DancingScript">
-        © 2024 Copyright TaraFit
-      </div>
-    </footer> -->
-  <!-- End Footer -->
+      <div class="footer-copyright DancingScript">© 2024 Copyright TaraFit</div>
+    </footer>
 
- 
+    <!-- End Footer -->
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
