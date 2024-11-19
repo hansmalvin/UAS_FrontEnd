@@ -30,8 +30,6 @@
 //   res.sendFile(path.join(__dirname, 'views', 'login', 'login-and-signin.html'));
 // });
 
-
-
 // app.use('/', (req, res)=> {
 //     res.status(404)
 //     res.send('<h1>404</h1>')
