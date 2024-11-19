@@ -1,95 +1,259 @@
-
-  /* Font untuk tulisan tangan */
+/* Font untuk tulisan tangan */
 .DancingScript {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.8rem;
-  }
+  font-family: "Dancing Script", cursive;
+  font-size: 1.8rem;
+}
 
-  /* Start Navbar */
-  .navbar a {
-    color: #D2B48B; 
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-  }
+/* Start Navbar */
+.navbar a {
+  color: #d2b48b;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
 
-  .navbar a:hover {
-    color: gold;
-  }
+.navbar a:hover {
+  color: gold;
+}
 
-  .navbar .nav-item .nav-link.active {
-    color: blanchedalmond;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  }
+.navbar .nav-item .nav-link.active {
+  color: blanchedalmond;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
 
-  nav {
-    background-color: #7B0005;
-  }
-  /* End Navbar */
+nav {
+  background-color: #7b0005;
+}
+/* End Navbar */
 
+/* ========================
+     Start Main Content
+     ======================== */
 
+main {
+  background-color: #d1eaea;
+}
 
+/* ========================
+     Start Section 1
+     ======================== */
 
+/* styles.css */
+.section-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  margin: 0;
+  font-family: "Times New Roman", serif;
+}
 
+.section-1 .text-effect {
+  text-align: center;
+  position: relative;
+  color: #e6782b;
+  font-size: 10rem;
+  line-height: 1;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 
+.section-1 .text-effect span {
+  display: block;
+  position: relative;
+  transform: skewX(20deg); /* Membuat efek miring */
+  letter-spacing: 5px;
+}
 
+.section-1 .text-effect span:first-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff6e3; /* Warna layer bawah putih */
+  z-index: 1;
+  /* clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%); */
+}
 
-  
-  /* Start Main Content */
+.section-1 .text-effect span:last-child {
+  transform: translateY(100px) skewX(-20deg); /* Miring dan bergeser ke bawah */
+}
+/* ========================
+     End Section 1
+   ======================== */
 
+/* ========================
+     Start Section 2
+     ======================== */
 
+.section-2 {
+  font-family: "Times New Roman", serif;
+  background-color: #6ca9af;
+}
 
-  /* End Main Content */
+.section-2 .custom-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #000;
+}
 
+.section-2 .card-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: all 0.3s ease-in-out;
+}
 
+.section-2 .card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1;
+  transition: background 0.3s ease-in-out;
+}
 
+.section-2 .custom-card:hover .card-img {
+  filter: grayscale(0%);
+  transform: scale(1.1);
+}
 
+.section-2 .custom-card:hover .card-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
 
+.section-2 .card-overlay h5 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
 
+.section-2 .card-overlay p {
+  font-size: 0.875rem;
+  margin: 0;
+}
 
+/* ========================
+     End Section 2
+   ======================== */
 
+/* ========================
+     Start Section 3
+   ======================== */
 
+.counter_area {
+  padding: 6.875rem 0 1.875rem;
+}
 
+.single_counter {
+  position: relative;
+}
 
+.single_counter span {
+  font-size: 3rem;
+  background: #7b0005;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
+.single_counter::after {
+  position: absolute;
+  content: "";
+  height: 70%;
+  width: 0.0063rem;
+  background-color: #000;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  opacity: 0.15;
+}
 
+.single_counter:last-child::after {
+  display: none ;
+}
 
-  
-  /* Start Footer */
-  .footer-container {
-    background-color: #FFF6E3;
-  }
-  
-  .footer-title {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    color: #7B0005;
-  }
-  
-  .footer-text {
-    color: #913436;
-  }
-  
-  .footer-link {
-    color: #E6782B;
-    text-decoration: none;
-  }
-  
-  .footer-link:hover {
-    color: #913436;
-    text-decoration: none;
-  }
-  
-  .footer-table {
-    border-color: #913436;
-  }
-  
-  .footer-copyright {
-    text-align: center;
-    padding: 1rem;
-    font-size: 1.4rem;
-    background-color: rgba(0, 0, 0, 0.2);
-    color: #913436;
-  }
-  
+/* ========================
+     End Section 3
+   ======================== */
 
-  /* End Footer */
-  
+/* ========================
+     Start Section 4
+     ======================== */
+
+/* ========================
+     End Section 4
+   ======================== */
+
+/* ========================
+     Start Section 5
+   ======================== */
+
+/* ========================
+     End Section 5
+   ======================== */
+
+/* ========================
+     Start Section 6
+     ======================== */
+
+/* ========================
+     End Section 6
+   ======================== */
+
+/* ========================
+     Start Section 7
+   ======================== */
+
+/* ========================
+     End Section 7
+   ======================== */
+
+/* ========================
+     End Main Content
+   ======================== */
+
+/* Start Footer */
+.footer-container {
+  background-color: #fff6e3;
+}
+
+.footer-title {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #7b0005;
+}
+
+.footer-text {
+  color: #913436;
+}
+
+.footer-link {
+  color: #e6782b;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: #913436;
+  text-decoration: none;
+}
+
+.footer-table {
+  border-color: #913436;
+}
+
+.footer-copyright {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.4rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #913436;
+}
+
+/* End Footer */
