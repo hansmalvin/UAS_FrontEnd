@@ -18,7 +18,8 @@ const dbColl = process.env.DB_COLLECTION;
 const User = require("./src/models/users-schema");
 
 app.use(express.static(__dirname + '/src/public'));
-app.use(express.static(__dirname + '/src/views'));
+app.use(express.static(__dirname + '/src/views')); 
+app.use(express.static(__dirname + '/src/views/login')); 
 
 mongoose.connect(url,{
   // useNewUrlParser: true,
@@ -43,7 +44,9 @@ app.use(session({
   }
 }));
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3234', credentials: true
+}))
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/src/views"));
 
@@ -53,7 +56,6 @@ const isAuth = (req, res, next) => {
   }
   else{
     res.redirect("/login/login-and-signin.html");
-    // res.redirect("/login");
   }
 }
 
@@ -107,11 +109,12 @@ app.post("/login", async (req, res) => {
     }
 
     req.session.isAuth = true;
-    res.redirect("/menu");
+    res.send('Login Succesfully')
   } catch (err) {
     res.status(500).send("Error logging in: " + err.message);
   }
 });
+
 
 // logout nya belom ada ui nya
 app.post("/logout", (req, res) => {
@@ -123,12 +126,17 @@ app.post("/logout", (req, res) => {
   });
 });
 
+app.get("/login-and-signin", (req, res) => {
+  res.sendFile(__dirname + "/src/views/login/login-and-signin.html");
+});
+
+
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/src/views/home.html");
+  res.sendFile(__dirname + "/src/views/home.html"); 
 });
 
 app.get("/menu", isAuth, (req, res) => {
-  res.sendFile(__dirname + "/src/views/menu.html");
+  res.sendFile(__dirname + "/src/views/menu.html"); 
 });
 
 app.get("/training", isAuth, (req, res) => {
@@ -138,3 +146,8 @@ app.get("/training", isAuth, (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+
+
+
+
