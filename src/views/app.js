@@ -34,6 +34,7 @@ app.controller("AuthController", function ($scope, $http) {
       .then((response) => {
         alert(response.data);
         $scope.loginData = {};
+        window.location.href="/menu"
       })
       .catch((error) => {
         alert(error.data);
