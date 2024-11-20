@@ -13,6 +13,7 @@ const { signupValidators, loginValidators } = require("./src/validators/users-va
 const app = express();
 const port = process.env.PORT;
 const url = process.env.DB_CONNECTION;
+const origin = process.env.DB_URL;
 const dbColl = process.env.DB_COLLECTION;
 
 const User = require("./src/models/users-schema");
@@ -45,8 +46,9 @@ app.use(session({
 }));
 
 app.use(cors({
-  origin: 'http://localhost:3234', credentials: true
-}))
+  origin: origin, 
+  credentials: true
+}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/src/views"));
 
@@ -115,7 +117,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-
 // logout nya belom ada ui nya
 app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
@@ -146,8 +147,3 @@ app.get("/training", isAuth, (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
-
-
-
-
-
