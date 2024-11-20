@@ -12,15 +12,17 @@ const { signupValidators, loginValidators } = require("./src/validators/users-va
 
 const app = express();
 const port = process.env.PORT;
-const url = process.env.DB_CONNECTION; 
+const url = process.env.DB_CONNECTION;
 const dbColl = process.env.DB_COLLECTION;
 
 const User = require("./src/models/users-schema");
 
+app.use(express.static(__dirname + '/src/public'));
+app.use(express.static(__dirname + '/src/views'));
+
 mongoose.connect(url,{
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true,
 })
   .then((res) => {
   console.log("mongodb Connected");
@@ -119,6 +121,10 @@ app.post("/logout", (req, res) => {
     }
     res.redirect("/home.html");
   });
+});
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/src/views/home.html");
 });
 
 app.get("/menu", isAuth, (req, res) => {
