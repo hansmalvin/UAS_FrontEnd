@@ -122,7 +122,9 @@ app.post("/logout", (req, res) => {
     if (err) {
       return res.status(500).send("Error logging out");
     }
-    res.redirect("/home.html");
+    res.redirect("/");
+    // res.clearCookie("connect.sid"); keknya bagus
+    res.status(200).send("Logged out successfully");
   });
 });
 
