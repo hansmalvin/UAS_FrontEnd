@@ -7,20 +7,16 @@ const MongoDBSession = require("connect-mongodb-session")(session);
 const bcrypt = require("bcryptjs")
 require('dotenv').config();
 
+const staticRoute = require("./src/routes/route")
 // test validator
 const { signupValidators, loginValidators } = require("./src/validators/users-validator");
+const User = require("./src/models/users-schema");
 
 const app = express();
 const port = process.env.PORT;
 const url = process.env.DB_CONNECTION;
 const origin = process.env.DB_URL;
 const dbColl = process.env.DB_COLLECTION;
-
-const User = require("./src/models/users-schema");
-
-app.use(express.static(__dirname + '/src/public'));
-app.use(express.static(__dirname + '/src/views')); 
-app.use(express.static(__dirname + '/src/views/login')); 
 
 mongoose.connect(url,{
   // useNewUrlParser: true,
@@ -50,14 +46,14 @@ app.use(cors({
   credentials: true
 }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + "/src/views"));
+app.use(staticRoute);
 
 const isAuth = (req, res, next) => {
   if(req.session.isAuth){
     next();
   }
   else{
-    res.redirect("/login/login-and-signin.html");
+    res.redirect("/login/login-and-signup.html");
   }
 }
 
@@ -84,6 +80,9 @@ app.post("/signup", async (req, res) => {
     });
 
     await newUser.save();
+
+    // req.session.isAuth = true;
+    // res.send('Login Succesfully')
 
     res.status(201).send("User created successfully");
   } catch (err) {
@@ -127,10 +126,9 @@ app.post("/logout", (req, res) => {
   });
 });
 
-app.get("/login-and-signin", (req, res) => {
-  res.sendFile(__dirname + "/src/views/login/login-and-signin.html");
+app.get("/login-and-signup", (req, res) => {
+  res.sendFile(__dirname + "/src/views/login/login-and-signup.html");
 });
-
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/src/views/home.html"); 
