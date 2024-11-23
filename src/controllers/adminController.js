@@ -20,7 +20,7 @@ app.controller("AdminController", function ($scope, $http) {
   });
 
 app.controller("AdminDashboardController", function ($scope, $http) {
-  // Fetch all users
+  // get all users
   $scope.getUsers = function () {
     $http.get("/users")
       .then((response) => {
@@ -31,7 +31,7 @@ app.controller("AdminDashboardController", function ($scope, $http) {
       });
   };
   
-  // Delete user
+  // Delete user by admin
   $scope.deleteUser = function (userId) {
     $http.delete(`/users/${userId}`)
       .then((response) => {
@@ -55,7 +55,6 @@ app.controller("AdminDashboardController", function ($scope, $http) {
       });
   };
   
-  // Load users on page load
   $scope.getUsers();
 });
   
