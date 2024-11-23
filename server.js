@@ -48,6 +48,7 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(staticRoute);
 
+//auth user
 const isAuth = (req, res, next) => {
   if(req.session.isAuth){
     next();
@@ -56,6 +57,17 @@ const isAuth = (req, res, next) => {
     res.redirect("/login/login-and-signup.html");
   }
 }
+
+//auth admin
+const isAdminAuth = (req, res, next) => {
+  if (req.session.isAdminAuth) {
+    next();
+  } else {
+    res.status(403).send("Access denied");
+    res.redirect("/login/loginAdmin.html");
+  }
+};
+
 
 app.post("/signup", async (req, res) => {
   const { error } = signupValidators.validate(req.body);
@@ -126,6 +138,62 @@ app.post("/logout", (req, res) => {
     // res.clearCookie("connect.sid"); keknya bagus
     res.status(200).send("Logged out successfully");
   });
+});
+
+//admin login function database
+app.post("/loginAdmin", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (email !== "admin@gmail.com" || password !== "123456") {
+    return res.status(403).send("Invalid admin credentials");
+  }
+
+  req.session.isAdminAuth = true;
+  res.status(200).send("Admin login successful");
+});
+
+// admin logout destroy session
+app.post("/logoutAdmin", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Error logging out");
+    }
+    // res.clearCookie("connect.sid");
+    res.redirect("/admin");
+  });
+});
+
+//get user
+app.get("/users", isAdminAuth, async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (err) {
+    res.status(500).send("Error fetching users");
+  }
+});
+
+// delete user by admin
+app.delete("/users/:id", isAdminAuth, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    res.status(200).send("User deleted successfully");
+  } catch (err) {
+    res.status(500).send("Error deleting user");
+  }
+});
+
+// admin login
+app.get("/admin", (req, res) => {
+  res.sendFile(__dirname + "/src/views/login/loginAdmin.html");
+});
+
+app.get("/adminDashboard", isAdminAuth,(req, res) => {
+  res.sendFile(__dirname + "/src/views/adminDashboard.html");
 });
 
 app.get("/login-and-signup", (req, res) => {
