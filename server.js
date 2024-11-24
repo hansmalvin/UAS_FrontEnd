@@ -231,6 +231,24 @@ app.delete("/users/:id", isAdminAuth, async (req, res) => {
   }
 });
 
+// delete user by user
+app.delete('/users/:id', isAuth, async (req, res) => {
+  const userId = req.params.id;
+  if (req.session.userId !== userId) {
+    return res.status(403).send("Unauthorized action");
+  }
+  try {
+    await User.findByIdAndDelete(userId);
+    res.status(200).send("User deleted successfully");
+    req.session.destroy(() => {
+      res.status(200).send("User deleted and session terminated");
+    });    
+  } catch (err) {
+    res.status(500).send("Error deleting user: " + err.message);
+  }
+});
+
+
 // admin login
 app.get("/admin", (req, res) => {
   res.sendFile(__dirname + "/src/views/login/loginAdmin.html");

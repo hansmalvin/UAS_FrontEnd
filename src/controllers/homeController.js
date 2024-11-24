@@ -40,6 +40,13 @@ app.controller('HomeController', function ($scope, $http) {
       });
   };
 
+  //confirm delete terus redirect ke delete http
+  $scope.confirmDelete = function (userId) {
+    if (confirm("Are you sure you want to delete your account?")) {
+      $scope.deleteUser(userId);
+    }
+  };
+
   $scope.deleteUser = function (userId) {
     $http.delete(`/users/${userId}`)
       .then((response) => {
@@ -50,4 +57,5 @@ app.controller('HomeController', function ($scope, $http) {
         alert("Error deleting user.");
       });
   };
+  
 });
