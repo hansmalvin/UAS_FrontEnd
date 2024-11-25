@@ -274,6 +274,10 @@ app.get("/training", isAuth, (req, res) => {
   res.sendFile(__dirname + "/src/views/training.html");
 });
 
+app.get("/contact", (req, res) => {
+  res.sendFile(__dirname + "/src/views/contact.html");
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

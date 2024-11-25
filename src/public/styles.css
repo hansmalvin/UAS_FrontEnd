@@ -152,22 +152,152 @@ main {
      Start Section 3
    ======================== */
 
-.counter_area {
+.section-3 {
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  color: #333;
+  margin-top: 2rem;
+}
+
+.section-3 .owl-carousel,
+.item {
+  text-align: left;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section-3 .item img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.section-3 .item h5 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 10px 0 5px;
+  color: #393e46;
+}
+
+.section-3 .item p {
+  font-size: 0.9rem;
+  color: #393e46;
+  margin-bottom: 10px;
+}
+
+.section-3 .owl-dots,
+.owl-dot span {
+  width: 10px;
+  height: 10px;
+  background: #ccc;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.section-3 .owl-dots .owl-dot.active span {
+  background: #0d6efd;
+}
+
+/* ========================
+     End Section 3
+   ======================== */
+
+/* ========================
+     Start Section 4
+     ======================== */
+.section-4 {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.section-4 h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.section-4 .about-section,
+.team-section {
+  padding: 50px;
+}
+
+.section-4 .highlight- {
+  background-color: #4e4e4e;
+  color: white;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.section-4 .image-placeholder {
+  background-color: #7c7c7c;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.section-4 .quote {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.section-4 .team-member img {
+  width: 100%;
+  max-width: 150px;
+  border-radius: 50%;
+}
+
+.section-4 .team-stats {
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+.section-4 .about-section .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  text-align: left;
+}
+
+.section-4 .about-section p {
+  margin: 0;
+  max-width: 90%;
+  line-height: 1.6;
+}
+/* ========================
+     End Section 4
+   ======================== */
+
+/* ========================
+     Start Section 5
+   ======================== */
+.section-5 .counter_area {
   padding: 6.875rem 0 1.875rem;
 }
 
-.single_counter {
+.section-5 .single_counter {
   position: relative;
 }
 
-.single_counter span {
+.section-5 .single_counter span {
   font-size: 3rem;
   background: #7b0005;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.single_counter::after {
+.section-5 .single_counter::after {
   position: absolute;
   content: "";
   height: 70%;
@@ -179,26 +309,9 @@ main {
   opacity: 0.15;
 }
 
-.single_counter:last-child::after {
-  display: none ;
+.section-5 .single_counter:last-child::after {
+  display: none;
 }
-
-/* ========================
-     End Section 3
-   ======================== */
-
-/* ========================
-     Start Section 4
-     ======================== */
-
-/* ========================
-     End Section 4
-   ======================== */
-
-/* ========================
-     Start Section 5
-   ======================== */
-
 /* ========================
      End Section 5
    ======================== */
