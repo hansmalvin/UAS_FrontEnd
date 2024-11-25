@@ -8,10 +8,6 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link 
-    rel="stylesheet" 
-    href="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"
-    />
     <link
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap"
       rel="stylesheet"
@@ -25,17 +21,25 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
     />
+    <link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
     <!-- JavaScript Owl Carousel -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
     <link rel="stylesheet" href="styles.css" />
     <script src="homeController.js"></script>
   </head>
-  <body>
+  <body ng-app="homeApp" ng-controller="HomeController">
     <!-- Start Navbar -->
     <nav class="navbar sticky-top navbar-expand-lg">
-      <div class="container">
+      <div class="container-fluid">
+        <a class="btn btn-dark geser" data-bs-toggle="offcanvas" href="#offcanvasTest" role="button" aria-controls="offcanvasTest">
+          <i class="bi bi-person"></i>
+        </a>
         <a class="navbar-brand fw-bold DancingScript" href="#">TaraFit</a>
         <button
           class="navbar-toggler"
@@ -52,7 +56,7 @@
             <li class="nav-item"><a class="nav-link" href="#">Destinations</a></li>
             <li class="nav-item"><a class="nav-link" href="#section-4">About</a></li>
             <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-            <li class="nav-item"><a class="nav-link" href="/login-and-signup">Login</a></li>
+            <li class="nav-item akhir"><a class="nav-link" href="/login-and-signup">Login</a></li>
           </ul>
         </div>
       </div>
@@ -340,6 +344,60 @@
         </div>
       </section>
       <!-- =============================== -->
+      <!-- End Section 3 -->
+      <!-- =============================== -->
+
+      <!-- =============================== -->
+      <!-- Start Sectionn 4 -->
+      <!-- =============================== -->
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasTest" aria-labelledby="offcanvasTest">
+        <div class="offcanvas-header" style="background-color: #D7C4B5;">
+          <h5 class="offcanvas-title" id="offcanvasTest">Profile</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" style="background-color: #EBE2D3; color: #502314;">
+          <h5>Welcome, {{user.username}}</h5>
+          <p>Email: {{user.email}}</p>
+          <div>
+            Welcome, you can edit your username here or your emaul here 
+          </div>
+            <div class="dropdown mt-3">
+              <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                See our recommended food
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="https://youtu.be/tX2dliC5zU4?feature=shared" target="_blank">Healthy</a></li>
+                <li><a class="dropdown-item" href="https://youtu.be/_sHthj7dXs0?feature=shared" target="_blank">High fiber</a></li>
+              </ul>
+            </div>
+            <!-- update user -->
+            <div>
+              <h5>Edit Profile</h5>
+              <form ng-submit="updateUser()">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" id="username" class="form-control" ng-model="user.username" required />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" id="email" class="form-control" ng-model="user.email" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </form>
+            </div>
+          <button class="btn btn-danger mt-3" ng-click="logout()">Logout</button>
+          <button class="btn btn-danger" ng-click="confirmDelete(user._id)">Delete</button>
+        </div>
+      </div>
+      <!-- =============================== -->
+      <!-- End Section 4 -->
+      <!-- =============================== -->
+
+      <!-- =============================== -->
+      <!-- Start Sectionn 5 -->
+      <!-- =============================== -->
+
+      <!-- =============================== -->
       <!-- End Section 5 -->
       <!-- =============================== -->
     </main>
@@ -401,6 +459,6 @@
     <!-- End Footer -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/src/views/app.js"></script>
+  <script src="/homeController.js"></script>
 </body>
 </html>

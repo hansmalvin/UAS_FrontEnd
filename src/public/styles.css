@@ -10,6 +10,10 @@
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
+.navbar-brand{
+  margin-left: 2rem;
+}
+
 .navbar a:hover {
   color: gold;
 }
@@ -41,7 +45,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: 60vh;
   margin: 0;
   font-family: "Times New Roman", serif;
 }
@@ -321,11 +325,16 @@ main {
    ======================== */
 
 /* ========================
-     Start Section 7
+     Start Section profil
    ======================== */
-
+   .geser{
+    margin-left: 3rem;
+  }
+  .akhir {
+    margin-right: 6rem;
+  }
 /* ========================
-     End Section 7
+     End Section profil
    ======================== */
 
 /* ========================

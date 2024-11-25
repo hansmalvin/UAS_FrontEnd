@@ -4,7 +4,8 @@ const session = require("express-session");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const MongoDBSession = require("connect-mongodb-session")(session);
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
+const rateLimit = require("express-rate-limit");
 require('dotenv').config();
 
 const staticRoute = require("./src/routes/route")
@@ -48,6 +49,7 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(staticRoute);
 
+//auth user
 const isAuth = (req, res, next) => {
   if(req.session.isAuth){
     next();
@@ -56,6 +58,23 @@ const isAuth = (req, res, next) => {
     res.redirect("/login/login-and-signup.html");
   }
 }
+
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 5,
+  message: "try again in 1 minute",
+})
+
+//auth admin
+const isAdminAuth = (req, res, next) => {
+  if (req.session.isAdminAuth) {
+    next();
+  } else {
+    res.status(403).send("Access denied");
+    res.redirect("/login/loginAdmin.html");
+  }
+};
+
 
 app.post("/signup", async (req, res) => {
   const { error } = signupValidators.validate(req.body);
@@ -90,7 +109,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/login", async (req, res) => {
+app.post("/login", limiter, async (req, res) => {
   const { error } = loginValidators.validate(req.body);
   if (error) {
     return res.status(400).send(error.details[0].message);
@@ -99,6 +118,12 @@ app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // regex email ditaro sini dulu nanti baru dipindahin ke validator, pw regex belum
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).send("Invalid email format");
+    }
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).send("User not found");
@@ -110,6 +135,7 @@ app.post("/login", async (req, res) => {
     }
 
     req.session.isAuth = true;
+    req.session.user = { username: user.username, email: user.email };
     res.send('Login Succesfully')
   } catch (err) {
     res.status(500).send("Error logging in: " + err.message);
@@ -122,8 +148,114 @@ app.post("/logout", (req, res) => {
     if (err) {
       return res.status(500).send("Error logging out");
     }
-    res.redirect("/home.html");
+    res.redirect("/");
+    // res.clearCookie("connect.sid"); keknya bagus
+    res.status(200).send("Logged out successfully");
   });
+});
+
+//admin login function database
+app.post("/loginAdmin", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (email !== "admin@gmail.com" || password !== "123456") {
+    return res.status(403).send("Invalid admin credentials");
+  }
+
+  req.session.isAdminAuth = true;
+  res.status(200).send("Admin login successful");
+});
+
+// admin logout destroy session
+app.post("/logoutAdmin", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Error logging out");
+    }
+    // res.clearCookie("connect.sid");
+    res.redirect("/admin");
+  });
+});
+
+//get user
+app.get("/users", isAdminAuth, async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (err) {
+    res.status(500).send("Error fetching users");
+  }
+});
+
+// get user
+app.get('/user', (req, res) => {
+  if (req.session.isAuth && req.session.user) {
+    const { username, email } = req.session.user;
+    res.status(200).json({ username, email });
+  } else {
+    res.status(401).json({ error: "User not authenticated" });
+  }
+});
+
+// update user by user
+app.put('/users/:id', async (req, res) => {
+  try {
+    const { username, email } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      { username, email },
+      { new: true, runValidators: true }
+    );
+    if (!updatedUser) {
+      return res.status(404).send("User not found");
+    }
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).send("Error updating user");
+  }
+});
+
+
+// delete user by admin
+app.delete("/users/:id", isAdminAuth, async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    res.status(200).send("User deleted successfully");
+  } catch (err) {
+    res.status(500).send("Error deleting user");
+  }
+});
+
+// delete user by user
+app.delete('/users/:id', isAuth, async (req, res) => {
+  const userId = req.params.id;
+  if (req.session.userId !== userId) {
+    return res.status(403).send("Unauthorized action");
+  }
+  try {
+    await User.findByIdAndDelete(userId);
+    res.status(200).send("User deleted successfully");
+    req.session.destroy(() => {
+      res.status(200).send("User deleted and session terminated");
+    });    
+  } catch (err) {
+    res.status(500).send("Error deleting user: " + err.message);
+  }
+});
+
+
+// admin login
+app.get("/admin", (req, res) => {
+  res.sendFile(__dirname + "/src/views/login/loginAdmin.html");
+});
+
+app.get("/adminDashboard", isAdminAuth,(req, res) => {
+  res.sendFile(__dirname + "/src/views/adminDashboard.html");
 });
 
 app.get("/login-and-signup", (req, res) => {
