@@ -30,6 +30,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
     <link rel="stylesheet" href="styles.css" />
+    <script src="homeController.js"></script>
   </head>
   <body>
     <!-- Start Navbar -->
@@ -49,8 +50,8 @@
             <li class="nav-item"><a class="nav-link" href="/training">Training</a></li>
             <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Destinations</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section-4">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
             <li class="nav-item"><a class="nav-link" href="/login-and-signup">Login</a></li>
           </ul>
         </div>
@@ -172,27 +173,7 @@
             </div>
           </div>
         </div>
-        <script>
-          $(document).ready(function () {
-            $(".owl-carousel").owlCarousel({
-              loop: true, // Carousel berulang
-              margin: 20, // Spasi antar item
-              nav: true, // Tombol navigasi
-              dots: true, // Titik navigasi
-              autoplay: true, // Otomatis bergeser
-              autoplayTimeout: 3000, // Interval waktu autoplay (ms)
-              autoplayHoverPause: true, // Pause ketika mouse hover
-              smartSpeed: 800, // Kecepatan transisi (ms)
-              fluidSpeed: true, // Mengikuti fluiditas user scroll
-              navSpeed: 800, // Kecepatan navigasi (ms)
-              responsive: {
-                0: { items: 1 }, // 1 item untuk layar kecil
-                768: { items: 2 }, // 2 item untuk tablet
-                1200: { items: 3 }, // 3 item untuk layar besar
-              },
-            });
-          });
-        </script>
+
       </section>
       <!-- =============================== -->
       <!-- End Section 2 -->
@@ -230,32 +211,6 @@
         <p>Trainer 5</p>
       </div>
     </div>
-
-    <!-- JavaScript Owl Carousel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-    <script>
-      $(document).ready(function () {
-        $(".owl-carousel").owlCarousel({
-          loop: true,
-          margin: 20,
-          nav: false,
-          dots: false,
-          responsive: {
-            0: {
-              items: 1,
-            },
-            600: {
-              items: 2,
-            },
-            1000: {
-              items: 3,
-            },
-          },
-        });
-      });
-    </script>
   </body>
 </section>
       <!-- =============================== -->
@@ -265,7 +220,7 @@
       <!-- =============================== -->
       <!-- Start Sectionn 4 -->
       <!-- =============================== -->
-<section class="section-4">
+<section class="section-4" id="section-4">
     <!-- About Us Section -->
     <div class="about-section text-center">
         <h1>About Us</h1>
@@ -383,30 +338,6 @@
             </div>
           </div>
         </div>
-        <script>
-          document.addEventListener("DOMContentLoaded", () => {
-            function counter(id, start, end, duration) {
-              let obj = document.getElementById(id),
-                current = start,
-                range = end - start,
-                increment = end > start ? 1 : -1,
-                step = Math.abs(Math.floor(duration / range)),
-                timer = setInterval(() => {
-                  current += increment;
-                  obj.textContent = current;
-                  if (current == end) {
-                    clearInterval(timer);
-                  }
-                }, step);
-            }
-
-            // Memanggil fungsi counter untuk elemen-elemen tertentu
-            counter("count1", 0, 10, 3000);
-            counter("count2", 100, 20, 4000);
-            counter("count3", 0, 30, 5000);
-            counter("count4", 0, 10, 3000);
-          });
-        </script>
       </section>
       <!-- =============================== -->
       <!-- End Section 5 -->

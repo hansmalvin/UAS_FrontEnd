@@ -211,6 +211,11 @@ main {
   padding: 0;
 }
 
+.section-4 h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
 .section-4 .about-section,
 .team-section {
   padding: 50px;
@@ -273,22 +278,22 @@ main {
 /* ========================
      Start Section 5
    ======================== */
-.counter_area {
+.section-5 .counter_area {
   padding: 6.875rem 0 1.875rem;
 }
 
-.single_counter {
+.section-5 .single_counter {
   position: relative;
 }
 
-.single_counter span {
+.section-5 .single_counter span {
   font-size: 3rem;
   background: #7b0005;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.single_counter::after {
+.section-5 .single_counter::after {
   position: absolute;
   content: "";
   height: 70%;
@@ -300,7 +305,7 @@ main {
   opacity: 0.15;
 }
 
-.single_counter:last-child::after {
+.section-5 .single_counter:last-child::after {
   display: none;
 }
 /* ========================
