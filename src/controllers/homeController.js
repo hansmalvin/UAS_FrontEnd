@@ -40,23 +40,24 @@ app.controller('HomeController', function ($scope, $http) {
       });
   };
 
-  //confirm delete terus redirect ke delete http
-  $scope.confirmDelete = function (userId) {
+  $scope.confirmDelete = function () {
+    const userId = $scope.user._id;
+    console.log("Session User ID:", userId); 
     if (confirm("Are you sure you want to delete your account?")) {
-      $scope.deleteUser(userId);
+      $scope.deleteUser(userId);  
     }
   };
-
+  
   $scope.deleteUser = function (userId) {
-    $http.delete(`/users/${userId}`)
+    $http.delete(`/api/users/${userId}`)
       .then((response) => {
         alert("User deleted successfully");
-        window.location.href = "/signup";
+        window.location.href = "/login-and-signup";
       })
       .catch((error) => {
         alert("Error deleting user.");
       });
-  };
+  };  
   
 });
 
@@ -122,4 +123,3 @@ document.addEventListener("DOMContentLoaded", () => {
     counter("count3", 0, 30, 5000);
     counter("count4", 0, 10, 3000);
   });
-  
