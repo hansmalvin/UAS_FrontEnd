@@ -135,7 +135,7 @@ app.post("/login", limiter, async (req, res) => {
     }
 
     req.session.isAuth = true;
-    req.session.user = { username: user.username, email: user.email };
+    req.session.user = { _id: user._id, username: user.username, email: user.email };
     res.send('Login Succesfully')
   } catch (err) {
     res.status(500).send("Error logging in: " + err.message);
@@ -190,12 +190,17 @@ app.get("/users", isAdminAuth, async (req, res) => {
 // get user
 app.get('/user', (req, res) => {
   if (req.session.isAuth && req.session.user) {
-    const { username, email } = req.session.user;
-    res.status(200).json({ username, email });
+    User.findOne({ email: req.session.user.email }, '_id username email', (err, user) => {
+      if (err || !user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      res.status(200).json(user);
+    });
   } else {
     res.status(401).json({ error: "User not authenticated" });
   }
 });
+
 
 // update user by user
 app.put('/users/:id', async (req, res) => {
@@ -216,7 +221,6 @@ app.put('/users/:id', async (req, res) => {
   }
 });
 
-
 // delete user by admin
 app.delete("/users/:id", isAdminAuth, async (req, res) => {
   try {
@@ -234,19 +238,24 @@ app.delete("/users/:id", isAdminAuth, async (req, res) => {
 // delete user by user
 app.delete('/users/:id', isAuth, async (req, res) => {
   const userId = req.params.id;
-  if (req.session.userId !== userId) {
+  
+  if (req.session.user._id !== userId) {
     return res.status(403).send("Unauthorized action");
   }
+
   try {
-    await User.findByIdAndDelete(userId);
-    res.status(200).send("User deleted successfully");
+    const deletedUser = await User.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      return res.status(404).send("User not found");
+    }
     req.session.destroy(() => {
       res.status(200).send("User deleted and session terminated");
-    });    
+    });
   } catch (err) {
     res.status(500).send("Error deleting user: " + err.message);
   }
 });
+
 
 
 // admin login
