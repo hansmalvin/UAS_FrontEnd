@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
-const express = require('express');
+const express = require("express");
 const session = require("express-session");
-const cors = require('cors');
-const bodyParser = require('body-parser');
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const MongoDBSession = require("connect-mongodb-session")(session);
 const bcrypt = require("bcryptjs");
 const rateLimit = require("express-rate-limit");
-require('dotenv').config();
+require("dotenv").config();
 
-const staticRoute = require("./src/routes/route")
+const staticRoute = require("./src/routes/route");
 // test validator
-const { signupValidators, loginValidators } = require("./src/validators/users-validator");
+const {
+  signupValidators,
+  loginValidators,
+} = require("./src/validators/users-validator");
 const User = require("./src/models/users-schema");
 
 const app = express();
@@ -19,12 +22,13 @@ const url = process.env.DB_CONNECTION;
 const origin = process.env.DB_URL;
 const dbColl = process.env.DB_COLLECTION;
 
-mongoose.connect(url,{
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
-})
+mongoose
+  .connect(url, {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+  })
   .then((res) => {
-  console.log("mongodb Connected");
+    console.log("mongodb Connected");
   });
 
 const store = new MongoDBSession({
@@ -32,38 +36,41 @@ const store = new MongoDBSession({
   collection: dbColl,
 });
 
-app.use(session({
-  secret: "key that will sign cookie",
-  resave: false,
-  saveUninitialized: false,
-  store: store,
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24, // 1 hari
-  }
-}));
+app.use(
+  session({
+    secret: "key that will sign cookie",
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 1 hari
+    },
+  })
+);
 
-app.use(cors({
-  origin: origin, 
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: origin,
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(staticRoute);
 
 //auth user
 const isAuth = (req, res, next) => {
-  if(req.session.isAuth){
+  if (req.session.isAuth) {
     next();
-  }
-  else{
+  } else {
     res.redirect("/login/login-and-signup.html");
   }
-}
+};
 
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000,
   max: 5,
   message: "try again in 1 minute",
-})
+});
 
 //auth admin
 const isAdminAuth = (req, res, next) => {
@@ -75,34 +82,29 @@ const isAdminAuth = (req, res, next) => {
   }
 };
 
-
+//Signup
 app.post("/signup", async (req, res) => {
   const { error } = signupValidators.validate(req.body);
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
-
-  const { username, email, password } = req.body;
-
+  const { username, email, password, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    return res.status(400).send("Passwords do not match");
+  }
   try {
     const alreadyUser = await User.findOne({ email });
     if (alreadyUser) {
       return res.status(400).send("Email already registered");
     }
-
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
-    });
-
+    })
     await newUser.save();
-
-    // req.session.isAuth = true;
-    // req.session.user = { _id: user._id, username: user.username, email: user.email };
-    // res.send('Login Succesfully')
 
     res.status(201).send("User created successfully");
   } catch (err) {
@@ -136,8 +138,12 @@ app.post("/login", limiter, async (req, res) => {
     }
 
     req.session.isAuth = true;
-    req.session.user = { _id: user._id, username: user.username, email: user.email };
-    res.send('Login Succesfully')
+    req.session.user = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+    };
+    res.send("Login Succesfully");
   } catch (err) {
     res.status(500).send("Error logging in: " + err.message);
   }
@@ -148,7 +154,7 @@ app.post("/logout", (req, res) => {
     if (err) {
       return res.status(500).send("Error logging out");
     }
-    // res.clearCookie("connect.sid"); 
+    // res.clearCookie("connect.sid");
     res.status(200).send("Logged out successfully");
   });
 });
@@ -187,15 +193,18 @@ app.get("/users", isAdminAuth, async (req, res) => {
 });
 
 // get user
-app.get('/user', async (req, res) => {
+app.get("/user", async (req, res) => {
   if (req.session.isAuth && req.session.user) {
     try {
-      const user = await User.findOne({ email: req.session.user.email }, '_id username email');
+      const user = await User.findOne(
+        { email: req.session.user.email },
+        "_id username email"
+      );
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
       res.status(200).json(user);
-    } catch (err) { 
+    } catch (err) {
       console.error("Error fetching user:", err);
       res.status(500).json({ error: "Error fetching user data" });
     }
@@ -205,7 +214,7 @@ app.get('/user', async (req, res) => {
 });
 
 // update user by user
-app.put('/users/:id', async (req, res) => {
+app.put("/users/:id", async (req, res) => {
   try {
     const { username, email } = req.body;
     const updatedUser = await User.findByIdAndUpdate(
@@ -238,7 +247,7 @@ app.delete("/users/:id", isAdminAuth, async (req, res) => {
 });
 
 // delete user by user /api bisa diapus
-app.delete('/api/users/:id', isAuth, async (req, res) => {
+app.delete("/api/users/:id", isAuth, async (req, res) => {
   const userId = req.params.id;
 
   // if (req.session.user._id !== userId) {
@@ -266,7 +275,7 @@ app.get("/admin", (req, res) => {
   res.sendFile(__dirname + "/src/views/login/loginAdmin.html");
 });
 
-app.get("/adminDashboard", isAdminAuth,(req, res) => {
+app.get("/adminDashboard", isAdminAuth, (req, res) => {
   res.sendFile(__dirname + "/src/views/adminDashboard.html");
 });
 
@@ -275,11 +284,11 @@ app.get("/login-and-signup", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/src/views/home.html"); 
+  res.sendFile(__dirname + "/src/views/home.html");
 });
 
 app.get("/menu", isAuth, (req, res) => {
-  res.sendFile(__dirname + "/src/views/menu.html"); 
+  res.sendFile(__dirname + "/src/views/menu.html");
 });
 
 app.get("/training", isAuth, (req, res) => {
@@ -293,3 +302,4 @@ app.get("/contact", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
