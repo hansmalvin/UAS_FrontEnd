@@ -101,6 +101,7 @@ app.post("/signup", async (req, res) => {
     await newUser.save();
 
     // req.session.isAuth = true;
+    // req.session.user = { _id: user._id, username: user.username, email: user.email };
     // res.send('Login Succesfully')
 
     res.status(201).send("User created successfully");
@@ -142,14 +143,12 @@ app.post("/login", limiter, async (req, res) => {
   }
 });
 
-// logout nya belom ada ui nya
 app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).send("Error logging out");
     }
-    res.redirect("/");
-    // res.clearCookie("connect.sid"); keknya bagus
+    // res.clearCookie("connect.sid"); 
     res.status(200).send("Logged out successfully");
   });
 });
@@ -188,19 +187,22 @@ app.get("/users", isAdminAuth, async (req, res) => {
 });
 
 // get user
-app.get('/user', (req, res) => {
+app.get('/user', async (req, res) => {
   if (req.session.isAuth && req.session.user) {
-    User.findOne({ email: req.session.user.email }, '_id username email', (err, user) => {
-      if (err || !user) {
+    try {
+      const user = await User.findOne({ email: req.session.user.email }, '_id username email');
+      if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
       res.status(200).json(user);
-    });
+    } catch (err) { 
+      console.error("Error fetching user:", err);
+      res.status(500).json({ error: "Error fetching user data" });
+    }
   } else {
     res.status(401).json({ error: "User not authenticated" });
   }
 });
-
 
 // update user by user
 app.put('/users/:id', async (req, res) => {
@@ -235,28 +237,29 @@ app.delete("/users/:id", isAdminAuth, async (req, res) => {
   }
 });
 
-// delete user by user
-app.delete('/users/:id', isAuth, async (req, res) => {
+// delete user by user /api bisa diapus
+app.delete('/api/users/:id', isAuth, async (req, res) => {
   const userId = req.params.id;
-  
-  if (req.session.user._id !== userId) {
-    return res.status(403).send("Unauthorized action");
-  }
+
+  // if (req.session.user._id !== userId) {
+  //   return res.status(403).send("Unauthorized action");
+  // }
 
   try {
     const deletedUser = await User.findByIdAndDelete(userId);
     if (!deletedUser) {
       return res.status(404).send("User not found");
     }
-    req.session.destroy(() => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).send("Error logging out");
+      }
       res.status(200).send("User deleted and session terminated");
     });
   } catch (err) {
     res.status(500).send("Error deleting user: " + err.message);
   }
 });
-
-
 
 // admin login
 app.get("/admin", (req, res) => {
