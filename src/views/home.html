@@ -353,6 +353,9 @@
       <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasTest" aria-labelledby="offcanvasTest">
         <div class="offcanvas-header" style="background-color: #D7C4B5;">
           <h5 class="offcanvas-title" id="offcanvasTest">Profile</h5>
+          <button class="btn custom-btn ms-3" onclick="toggleTheme()" id="themeToggleIcon">
+            <i class="bi bi-lightbulb-fill"></i>
+          </button>          
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body" style="background-color: #EBE2D3; color: #502314;">
@@ -386,7 +389,7 @@
               </form>
             </div>
           <button class="btn btn-danger mt-3" ng-click="logout()">Logout</button>
-          <button class="btn btn-danger" ng-click="confirmDelete(user._id)">Delete</button>
+          <button class="btn btn-danger mt-3" ng-click="confirmDelete(user._id)">Delete</button>
         </div>
       </div>
       <!-- =============================== -->

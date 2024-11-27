@@ -122,4 +122,37 @@ document.addEventListener("DOMContentLoaded", () => {
     counter("count3", 0, 30, 5000);
     counter("count4", 0, 10, 3000);
   });
+
+              // Start Fungsi untuk ganti Tema
+              function toggleTheme() {
+                const theme = document.documentElement.getAttribute("data-theme");
+                const themeIcon = document.getElementById("themeToggleIcon").querySelector("i");
+            
+                if (theme === "dark") {
+                    document.documentElement.setAttribute("data-theme", "light");
+                    localStorage.setItem("theme", "light");
+                    themeIcon.classList.remove("bi-moon");
+                    themeIcon.classList.add("bi-lightbulb-fill");  // Ubah ke ikon light
+                } else {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                    localStorage.setItem("theme", "dark");
+                    themeIcon.classList.remove("bi-lightbulb-fill");
+                    themeIcon.classList.add("bi-moon");  // Ubah ke ikon dark
+              }
+            };
+            // Cek tema yang tersimpan saat halaman dimuat
+
+              document.addEventListener("DOMContentLoaded", () => {
+                const savedTheme = localStorage.getItem("theme") || "light";
+                document.documentElement.setAttribute("data-theme", savedTheme);
+                const themeIcon = document.getElementById("themeToggleIcon").querySelector("i");
+                  if (savedTheme === "dark") {
+                      themeIcon.classList.add("bi-moon");  // Ikon mode gelap
+                  } else {
+                      themeIcon.classList.add("bi-lightbulb-fill");  // Ikon mode terang
+                  }
+              }
+            );
+            // End Fungsi untuk Ganti Tema
+
   
