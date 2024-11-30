@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="trainingApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Training Management</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <style>
+      .training-card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      .file-input {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body ng-app= "trainingApp" ng-controller="TrainingController">
+    <div class="container-fluid">
+      <h1>Training Management</h1>
+
+      <!-- Tombol Navigasi ke Admin Dashboard -->
+      <a href="adminDashboard.html" class="btn btn-primary mt-3 mb-3"
+        >Go to Admin Dashboard</a
+      >
+
+      <!-- Form Tambah Training -->
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Add New Training</div>
+        <div class="card-body">
+          <form ng-submit="addTraining()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input
+                  type="text"
+                  id="title"
+                  class="form-control"
+                  ng-model="newTraining.title"
+                  placeholder="Enter training title"
+                  required
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="link" class="form-label">Link</label>
+                <input
+                  type="url"
+                  id="link"
+                  class="form-control"
+                  ng-model="newTraining.link"
+                  placeholder="Enter training link"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea
+                  id="description"
+                  class="form-control"
+                  ng-model="newTraining.description"
+                  placeholder="Enter training description"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <input
+                  type="number"
+                  id="rating"
+                  class="form-control"
+                  ng-model="newTraining.rating"
+                  placeholder="0-5"
+                  min="0"
+                  max="5"
+                />
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="img" class="form-label">Image</label>
+                <input
+                  type="file"
+                  id="img"
+                  class="form-control"
+                  file-model="newTraining.img"
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success w-100">
+              Add Training
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- List Training -->
+      <div class="row" ng-if="trainings.length > 0">
+        <div
+          class="col-md-4 mb-4"
+          ng-repeat="training in trainings track by $index"
+        >
+          <div class="card h-100">
+            <img
+              ng-if="training.img"
+              ng-src="data:{{training.img.contentType}};base64,{{training.img.data}}"
+              alt="Training Image"
+              class="card-img-top"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ training.title }}</h5>
+              <p class="card-text">{{ training.description }}</p>
+              <p><strong>Rating:</strong> {{ training.rating || 0 }} / 5</p>
+              <a
+                href="{{ training.link }}"
+                target="_blank"
+                class="btn btn-primary btn-sm me-2"
+                >View More</a
+              >
+              <button
+                class="btn btn-danger btn-sm me-2"
+                ng-click="deleteTraining(training._id)"
+              >
+                Delete
+              </button>
+              <button
+                class="btn btn-secondary btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#updateModal"
+                ng-click="setSelectedTraining(training)"
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Update Training -->
+      <div
+        class="modal fade"
+        id="updateModal"
+        tabindex="-1"
+        aria-labelledby="updateModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="updateModalLabel">Update Training</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form ng-submit="updateTraining()">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="update-title" class="form-label">Title</label>
+                    <input
+                      type="text"
+                      id="update-title"
+                      class="form-control"
+                      ng-model="selectedTraining.title"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="update-link" class="form-label">Link</label>
+                    <input
+                      type="url"
+                      id="update-link"
+                      class="form-control"
+                      ng-model="selectedTraining.link"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="update-description" class="form-label"
+                      >Description</label
+                    >
+                    <textarea
+                      id="update-description"
+                      class="form-control"
+                      ng-model="selectedTraining.description"
+                      rows="3"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="update-rating" class="form-label">Rating</label>
+                    <input
+                      type="number"
+                      id="update-rating"
+                      class="form-control"
+                      ng-model="selectedTraining.rating"
+                      min="0"
+                      max="5"
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="update-img" class="form-label">Image</label>
+                    <input
+                      type="file"
+                      id="update-img"
+                      class="form-control"
+                      file-model="selectedTraining.img"
+                    />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                  Save Changes
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="trainingController.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

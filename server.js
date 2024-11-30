@@ -291,6 +291,9 @@ app.get("/menu", isAuth, (req, res) => {
   res.sendFile(__dirname + "/src/views/menu.html");
 });
 
+app.get("/trainingDashboard", isAdminAuth, (req, res) => {
+  res.sendFile(__dirname + "/src/views/trainingDashboard.html");
+});
 app.get("/training", isAuth, (req, res) => {
   res.sendFile(__dirname + "/src/views/training.html");
 });
@@ -303,3 +306,9 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
+
+const trainingRoutes = require("./src/routes/trainingRoutes");
+app.use("/trainings", trainingRoutes);
+
+const todolistRoutes = require("./src/routes/todolistRoutes");
+app.use("/todolist", todolistRoutes);

@@ -1,61 +1,212 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Training</title>
-  <link 
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-  rel="stylesheet"
-  />
-  <link 
-  href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap" 
-  rel="stylesheet"
-  />
-  <link 
-  rel="stylesheet" 
-  href="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"
-  />
-  <link 
-  rel="stylesheet" 
-  href="/styles.css"
-  />
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-</head>
-<body>
-  <!-- Start Navbar -->
-  <nav class="navbar sticky-top navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand fw-bold DancingScript"  href="/">TaraFit</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="/training">Training</a></li>
-          <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Destinations</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="/login-and-signup">Login</a></li>
-        </ul>
+<html lang="en" ng-app="trainingApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Training Carousel</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .carousel-container {
+        overflow-x: auto;
+        display: flex;
+        gap: 16px;
+        padding: 10px;
+        scroll-snap-type: x mandatory;
+      }
+
+      .training-card {
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .training-card img {
+        max-width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .training-card .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+
+      .training-card .card-link {
+        margin-top: 8px;
+      }
+
+      .todolist-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+      }
+
+      .add-to-todolist-button {
+        margin-top: auto;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  </head>
+  <body ng-controller="TrainingController">
+    <!-- Navbar -->
+    <nav class="navbar sticky-top navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand fw-bold DancingScript" href="/">TaraFit</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="/training">Training</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Destinations</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login-and-signup">Login</a>
+            </li>
+          </ul>
+        </div>
       </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container my-5">
+      <h1 class="mb-4">Training List</h1>
+      <p>UserID: {{ user._id }}</p>
+      <p>{{ training._id }}</p>
+
+      <!-- Offcanvas -->
+      <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="todolistOffcanvas"
+        aria-labelledby="todolistOffcanvasLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="todolistOffcanvasLabel">
+            Your Todolist
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body" ng-controller="ToDoListController">
+          <!-- Tampilkan daftar latihan berdasarkan ToDoList -->
+          <div
+            class="card mb-3"
+            ng-repeat="item in todoTrainings track by $index"
+          >
+            <div class="card-body">
+              <h5 class="card-title">{{ item.training.title }}</h5>
+              <p class="card-text">{{ item.training.description }}</p>
+              <p class="card-text">
+                <small class="text-muted">Priority: {{ item.priority }}</small>
+              </p>
+              <p class="card-text">
+                <small class="text-muted">ID todolist: {{ item.id }}</small> <br>
+                <small class="text-muted">ID training: {{ item.idTraining }}</small> <br>
+                <small class="text-muted">ID user: {{ item.idUser }}</small>
+                <!-- Tampilkan ID -->
+              </p>
+              <a
+                ng-href="{{ item.training.link }}"
+                class="btn btn-primary"
+                target="_blank"
+                >Go to Training</a
+              >
+            </div>
+          </div>
+          <div ng-if="!todoTrainings.length" class="text-center mt-4">
+            <p>No items in your todolist.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel untuk menampilkan pelatihan -->
+      <div class="carousel-container">
+        <div
+          class="card training-card"
+          ng-repeat="training in trainings track by $index"
+        >
+          <img
+            ng-src="data:{{training.img.contentType}};base64,{{training.img.data}}"
+            alt="Training Image"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ training.title }}</h5>
+            <p class="card-text">{{ training.description }}</p>
+            <p><strong>Rating:</strong> {{ training.rating || 0 }} / 5</p>
+
+            <!-- Link ke detail pelatihan -->
+            <a
+              ng-href="{{ training.link }}"
+              class="btn btn-outline-primary card-link"
+              target="_blank"
+            >
+              Learn More
+            </a>
+
+            <!-- Tombol untuk menambahkan ke todolist -->
+            <div ng-controller="ToDoListController">
+              <button
+                class="btn btn-success w-100 add-to-todolist-button"
+                ng-click="addToDoList(training._id)"
+              >
+                Add to Todolist
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tombol untuk membuka offcanvas -->
+      <button
+        class="btn btn-primary"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#todolistOffcanvas"
+      >
+        View Todolist
+      </button>
     </div>
-  </nav>
-  <!-- End Navbar -->
 
-
-  <!-- Start Footer -->
-   
+    <!-- Footer -->
     <footer class="footer-container">
       <div class="container p-4">
         <div class="row">
           <div class="col-lg-6 col-md-12 mb-4">
             <h5 class="footer-title">Footer Content</h5>
             <p class="footer-text">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-              molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-              voluptatem veniam, est atque cumque eum delectus sint!
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
+              atque ea quis molestias. Fugiat pariatur maxime quis culpa
+              corporis vitae repudiandae aliquam voluptatem veniam, est atque
+              cumque eum delectus sint!
             </p>
           </div>
           <div class="col-lg-3 col-md-6 mb-4">
@@ -92,16 +243,10 @@
           </div>
         </div>
       </div>
-      <div class="footer-copyright DancingScript">
-        © 2024 Copyright TaraFit
-      </div>
+      <div class="footer-copyright DancingScript">© 2024 Copyright TaraFit</div>
     </footer>
 
-  <!-- End Footer -->
-
- 
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/authController.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="trainingController.js"></script>
+  </body>
 </html>
