@@ -97,8 +97,7 @@
     <!-- Content -->
     <div class="container my-5">
       <h1 class="mb-4">Training List</h1>
-      <p>UserID: {{ user._id }}</p>
-      <p>{{ training._id }}</p>
+      <!-- <p>UserID: {{ user._id }}</p> -->
 
       <!-- Offcanvas -->
       <div
@@ -118,32 +117,69 @@
             aria-label="Close"
           ></button>
         </div>
+
         <div class="offcanvas-body" ng-controller="ToDoListController">
-          <!-- Tampilkan daftar latihan berdasarkan ToDoList -->
           <div
             class="card mb-3"
             ng-repeat="item in todoTrainings track by $index"
           >
             <div class="card-body">
-              <h5 class="card-title">{{ item.training.title }}</h5>
-              <p class="card-text">{{ item.training.description }}</p>
+              <!-- Pastikan title tampil -->
+              <h5 class="card-title">{{ item.title }}</h5>
+
+              <!-- Cek apakah description tersedia -->
               <p class="card-text">
-                <small class="text-muted">Priority: {{ item.priority }}</small>
+                {{ item.training.description || 'No description available' }}
               </p>
-              <p class="card-text">
-                <small class="text-muted">ID todolist: {{ item.id }}</small> <br>
-                <small class="text-muted">ID training: {{ item.idTraining }}</small> <br>
-                <small class="text-muted">ID user: {{ item.idUser }}</small>
-                <!-- Tampilkan ID -->
-              </p>
+
+              <!-- Tampilkan ID Training -->
+              <!-- <p>ID Training: {{ item.idTraining }}</p>
+              <p>ID Training: {{ item.priority }}</p> -->
+
+              <!-- Tampilkan Link Training -->
               <a
                 ng-href="{{ item.training.link }}"
-                class="btn btn-primary"
+                class="btn btn-primary btn-sm"
                 target="_blank"
-                >Go to Training</a
+                ng-if="item.training.link"
               >
+                View Training
+              </a>
+
+              <!-- Input untuk Update Priority -->
+              <div class="mb-3 mt-3">
+                <label for="priority-{{ item.idTraining }}" class="form-label">
+                  Update Priority:
+                </label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="priority-{{ item.idTraining }}"
+                  ng-model="item.priority"
+                  min="1"
+                  max="10"
+                />
+              </div>
+
+              <!-- Tombol Update Priority -->
+              <button
+                class="btn btn-success btn-sm"
+                ng-click="updatePriority(item.id, item.priority)"
+              >
+                Update Priority
+              </button>
+
+              <!-- Tombol Delete -->
+              <button
+                class="btn btn-success btn-sm"
+                ng-click="deleteToDoList(item.id)"
+              >
+                Finished
+              </button>
             </div>
           </div>
+
+          <!-- Jika tidak ada item -->
           <div ng-if="!todoTrainings.length" class="text-center mt-4">
             <p>No items in your todolist.</p>
           </div>
@@ -157,11 +193,14 @@
           ng-repeat="training in trainings track by $index"
         >
           <img
+            class="lazy"
             ng-src="data:{{training.img.contentType}};base64,{{training.img.data}}"
             alt="Training Image"
+            loading="lazy"
           />
           <div class="card-body">
             <h5 class="card-title">{{ training.title }}</h5>
+            <!-- <p class="card-title">{{ training._id }}</p> -->
             <p class="card-text">{{ training.description }}</p>
             <p><strong>Rating:</strong> {{ training.rating || 0 }} / 5</p>
 
@@ -248,5 +287,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="trainingController.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"
+      async
+    ></script>
   </body>
 </html>

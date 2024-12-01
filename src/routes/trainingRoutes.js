@@ -118,8 +118,15 @@ router.put("/:id", upload.single("img"), async (req, res) => {
     if (
       req.file &&
       ["image/jpeg", "image/png", "image/gif"].includes(req.file.mimetype)
-    )
-      await training.save();
+    ) {
+      training.img = {
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+      };
+    }
+
+    // Save setelah melakukan perubahan
+    await training.save();
 
     res.status(200).json({
       message: "Training updated successfully",
