@@ -312,3 +312,6 @@ app.use("/trainings", trainingRoutes);
 
 const todolistRoutes = require("./src/routes/todolistRoutes");
 app.use("/todolist", todolistRoutes);
+
+const menuRoutes = require("./src/routes/menuRoutes"); 
+app.use("/menus", menuRoutes);

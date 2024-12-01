@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="menuApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Management</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <style>
+      .menu-card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      .file-input {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body ng-controller="MenuController">
+    <div class="container-fluid">
+      <h1>Menu Management</h1>
+
+      <!-- Tombol Navigasi ke Admin Dashboard -->
+      <a href="adminDashboard.html" class="btn btn-primary mt-3 mb-3">
+        Go to Admin Dashboard
+      </a>
+
+      <!-- Form Tambah Menu -->
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Add New Menu</div>
+        <div class="card-body">
+          <form ng-submit="addMenu()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="name_menu" class="form-label">Menu Name</label>
+                <input
+                  type="text"
+                  id="name_menu"
+                  class="form-control"
+                  ng-model="newMenu.name_menu"
+                  placeholder="Enter menu name"
+                  required
+                />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input
+                  type="text"
+                  id="category"
+                  class="form-control"
+                  ng-model="newMenu.category"
+                  placeholder="Enter menu category"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea
+                  id="description"
+                  class="form-control"
+                  ng-model="newMenu.description"
+                  placeholder="Enter menu description"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="availability" class="form-label"
+                  >Availability</label
+                >
+                <input
+                  type="number"
+                  id="availability"
+                  class="form-control"
+                  ng-model="newMenu.availability"
+                  placeholder="0"
+                  min="0"
+                />
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="img" class="form-label">Image</label>
+                <input
+                  type="file"
+                  id="img"
+                  class="form-control"
+                  file-model="newMenu.img"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label for="link" class="form-label">Link</label>
+                <input
+                  type="url"
+                  id="link"
+                  class="form-control"
+                  ng-model="newMenu.link"
+                  placeholder="Enter menu link"
+                  required
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success w-100 mt-3">
+              Add Menu
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- List Menu -->
+      <div class="row" ng-if="menus.length > 0">
+        <div class="col-md-4 mb-4" ng-repeat="menu in menus track by $index">
+          <div class="card h-100">
+            <img
+              ng-if="menu.img"
+              ng-src="data:{{menu.img.contentType}};base64,{{menu.img.data}}"
+              alt="Menu Image"
+              class="card-img-top"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ menu.name_menu }}</h5>
+              <p class="card-text">{{ menu.description }}</p>
+              <p><strong>Category:</strong> {{ menu.category }}</p>
+              <p><strong>Availability:</strong> {{ menu.availability }}</p>
+              <a
+                href="{{ menu.link }}"
+                target="_blank"
+                class="btn btn-primary btn-sm me-2"
+                >View Details</a
+              >
+              <button
+                class="btn btn-danger btn-sm me-2"
+                ng-click="deleteMenu(menu._id)"
+              >
+                Delete
+              </button>
+              <button
+                class="btn btn-secondary btn-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#updateModal"
+                ng-click="setSelectedMenu(menu)"
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Update Menu -->
+      <div
+        class="modal fade"
+        id="updateModal"
+        tabindex="-1"
+        aria-labelledby="updateModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="updateModalLabel">Update Menu</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form ng-submit="updateMenu()">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="update-name_menu" class="form-label"
+                      >Menu Name</label
+                    >
+                    <input
+                      type="text"
+                      id="update-name_menu"
+                      class="form-control"
+                      ng-model="selectedMenu.name_menu"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="update-category" class="form-label"
+                      >Category</label
+                    >
+                    <input
+                      type="text"
+                      id="update-category"
+                      class="form-control"
+                      ng-model="selectedMenu.category"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="update-description" class="form-label"
+                      >Description</label
+                    >
+                    <textarea
+                      id="update-description"
+                      class="form-control"
+                      ng-model="selectedMenu.description"
+                      rows="3"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="update-availability" class="form-label"
+                      >Availability</label
+                    >
+                    <input
+                      type="number"
+                      id="update-availability"
+                      class="form-control"
+                      ng-model="selectedMenu.availability"
+                      min="0"
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="update-img" class="form-label">Image</label>
+                    <input
+                      type="file"
+                      id="update-img"
+                      class="form-control"
+                      file-model="selectedMenu.img"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label for="update-link" class="form-label">Link</label>
+                    <input
+                      type="url"
+                      id="update-link"
+                      class="form-control"
+                      ng-model="selectedMenu.link"
+                      required
+                    />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-3">
+                  Save Changes
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="menuController.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
