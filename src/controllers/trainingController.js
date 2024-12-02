@@ -268,6 +268,15 @@ app.controller("ToDoListController", function ($scope, $http) {
       return;
     }
 
+    const isDuplicate = $scope.todoTrainings.some(
+      (item) => item.idTraining === trainingId
+    );
+
+    if (isDuplicate) {
+      alert("This task is already in your To-Do List.");
+      return;
+    }
+
     // Hitung jumlah entri untuk latihan ini di todoTrainings
     const existingEntries = $scope.todoTrainings.filter(
       (item) => item.idTraining === trainingId

@@ -4,7 +4,6 @@ const router = express.Router();
 const ToDoList = require("../models/todoList-schema");
 const Training = require("../models/training-schema");
 
-// Middleware untuk validasi ObjectId
 const validateObjectId = (req, res, next) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -21,7 +20,6 @@ router.get("/", async (req, res) => {
 
     const userId = req.session.user._id;
 
-    // Ambil todo-list milik user
     const todoList = await ToDoList.find({ idUser: userId });
 
     if (!todoList || todoList.length === 0) {
@@ -66,7 +64,17 @@ router.post("/", async (req, res) => {
         .json({ error: "Priority must be a number between 1 and 10" });
     }
 
-    // Hitung jumlah entri yang sudah ada untuk kombinasi user dan latihan ini
+    const existingTask = await ToDoList.findOne({
+      idUser,
+      idTraining,
+    });
+
+    if (existingTask) {
+      return res.status(400).json({
+        error: "This training is already in your To-Do List.",
+      });
+    }
+
     const existingEntriesCount = await ToDoList.countDocuments({
       idUser,
       idTraining,
@@ -78,7 +86,6 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // Tambahkan latihan baru ke database
     const newToDo = new ToDoList({ idTraining, idUser, priority });
     await newToDo.save();
 
@@ -116,7 +123,7 @@ router.put("/:id", validateObjectId, async (req, res) => {
     const { id } = req.params;
     const { priority } = req.body;
 
-    console.log("Received ID for update:", id); // Debug ID
+    console.log("Received ID for update:", id);
     console.log("New Priority:", priority);
 
     if (priority < 1 || priority > 10) {
@@ -130,7 +137,7 @@ router.put("/:id", validateObjectId, async (req, res) => {
     );
 
     if (!updatedToDo) {
-      console.log("ToDo item not found for ID:", id); // Debug jika tidak ditemukan
+      console.log("ToDo item not found for ID:", id); 
       return res.status(404).json({ error: "ToDo item tidak ditemukan." });
     }
 

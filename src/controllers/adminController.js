@@ -19,6 +19,7 @@ app.controller("AdminController", function ($scope, $http) {
     };
   });
 
+
 app.controller("AdminDashboardController", function ($scope, $http) {
   // get all users
   $scope.getUsers = function () {
@@ -29,6 +30,38 @@ app.controller("AdminDashboardController", function ($scope, $http) {
       .catch((error) => {
         alert("Error fetching users.");
       });
+  };
+
+// Fungsi relevansi untuk sorting
+  $scope.calculateRelevance = function (user, query) {
+    const usernameIndex = (user.username || "").toLowerCase().indexOf(query);
+    const emailIndex = (user.email || "").toLowerCase().indexOf(query);
+
+    // Jika query tidak ditemukan, berikan nilai sangat rendah
+    if (usernameIndex === -1 && emailIndex === -1) return Infinity;
+
+    // Prioritaskan username lebih tinggi dari email
+    if (usernameIndex !== -1 && emailIndex !== -1) {
+      return Math.min(usernameIndex, emailIndex);
+    }
+    return usernameIndex !== -1 ? usernameIndex : emailIndex;
+  };
+
+  // Filter dan sorting data berdasarkan query
+  $scope.filterAndSortUsers = function () {
+    if (!$scope.searchQuery) {
+      return $scope.users; // Tampilkan semua jika query kosong
+    }
+
+    const query = $scope.searchQuery.toLowerCase();
+    return $scope.users
+      .filter((user) =>
+        (user.username || "").toLowerCase().includes(query) ||
+        (user.email || "").toLowerCase().includes(query)
+      )
+      .sort((a, b) =>
+        $scope.calculateRelevance(a, query) - $scope.calculateRelevance(b, query)
+      );
   };
   
   // Delete user by admin

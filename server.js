@@ -10,10 +10,7 @@ require("dotenv").config();
 
 const staticRoute = require("./src/routes/route");
 // test validator
-const {
-  signupValidators,
-  loginValidators,
-} = require("./src/validators/users-validator");
+const { signupValidators, loginValidators, } = require("./src/validators/users-validator");
 const User = require("./src/models/users-schema");
 
 const app = express();
@@ -270,30 +267,53 @@ app.delete("/api/users/:id", isAuth, async (req, res) => {
   }
 });
 
+// const forgotPasswordValidators = Joi.object({
+//   email: Joi.string().email().required(),
+//   newPassword: Joi.string().min(6).required(),
+// });
+
+// test forgot password
+app.post("/forgot-password", async (req, res) => {
+  // const { error } = forgotPasswordValidators.validate(req.body);
+  // if (error) {
+  //   return res.status(400).send(error.details[0].message);
+  // } joi
+  const { email, newPassword } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).send("Password successfully reset.");
+  } catch (error) {
+    res.status(500).send("Error resetting password: " + error.message);
+  }
+});
+
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/src/views/home.html");
+});
+
 // admin login
 app.get("/admin", (req, res) => {
   res.sendFile(__dirname + "/src/views/login/loginAdmin.html");
-});
-
-app.get("/adminDashboard", isAdminAuth, (req, res) => {
-  res.sendFile(__dirname + "/src/views/adminDashboard.html");
 });
 
 app.get("/login-and-signup", (req, res) => {
   res.sendFile(__dirname + "/src/views/login/login-and-signup.html");
 });
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/src/views/home.html");
-});
-
 app.get("/menu", isAuth, (req, res) => {
   res.sendFile(__dirname + "/src/views/menu.html");
 });
 
-app.get("/trainingDashboard", isAdminAuth, (req, res) => {
-  res.sendFile(__dirname + "/src/views/trainingDashboard.html");
-});
 app.get("/training", isAuth, (req, res) => {
   res.sendFile(__dirname + "/src/views/training.html");
 });
@@ -302,10 +322,21 @@ app.get("/contact", (req, res) => {
   res.sendFile(__dirname + "/src/views/contact.html");
 });
 
+app.get("/adminDashboard", isAdminAuth, (req, res) => {
+  res.sendFile(__dirname + "/src/views/adminDashboard.html");
+});
+
+app.get("/trainingDashboard", isAdminAuth, (req, res) => {
+  res.sendFile(__dirname + "/src/views/trainingDashboard.html");
+});
+
+app.get("/menuDashboard", isAdminAuth, (req, res) => {
+  res.sendFile(__dirname + "/src/views/menuDashboard.html");
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
-
 
 const trainingRoutes = require("./src/routes/trainingRoutes");
 app.use("/trainings", trainingRoutes);
@@ -315,3 +346,7 @@ app.use("/todolist", todolistRoutes);
 
 const menuRoutes = require("./src/routes/menuRoutes"); 
 app.use("/menus", menuRoutes);
+
+// belom dibuat
+// const usersRoutes = require("./src/routes/usersRoutes"); 
+// app.use("/users", usersRoutes);

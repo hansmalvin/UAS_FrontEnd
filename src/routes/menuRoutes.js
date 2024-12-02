@@ -4,7 +4,6 @@ const Menu = require("../models/menu-schema");
 const mongoose = require("mongoose");
 const router = express.Router();
 
-// Configure multer for file uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -16,14 +15,13 @@ router.get("/", async (req, res) => {
   try {
     const menus = await Menu.find();
 
-    // Convert buffer image data to base64 for each menu item
     const formattedMenus = menus.map((menu) => {
       if (menu.img && menu.img.data) {
         return {
           ...menu.toObject(),
           img: {
             contentType: menu.img.contentType,
-            data: menu.img.data.toString("base64"), // Convert buffer to Base64
+            data: menu.img.data.toString("base64")
           },
         };
       }
@@ -53,7 +51,7 @@ router.post("/", upload.single("img"), async (req, res) => {
       name_menu,
       description,
       category,
-      availability: availability || 0, // Default jika tidak diisi
+      availability: availability || 0,
       link,
     });
 
@@ -109,14 +107,12 @@ router.put("/:id", upload.single("img"), async (req, res) => {
       return res.status(404).json({ error: "Menu not found" });
     }
 
-    // Update fields
     if (name_menu) menu.name_menu = name_menu;
     if (description) menu.description = description;
     if (category) menu.category = category;
     if (availability !== undefined) menu.availability = availability;
     if (link) menu.link = link;
 
-    // Handle uploaded image
     if (
       req.file &&
       ["image/jpeg", "image/png", "image/gif"].includes(req.file.mimetype)
@@ -127,7 +123,6 @@ router.put("/:id", upload.single("img"), async (req, res) => {
       };
     }
 
-    // Save updated menu
     await menu.save();
 
     res.status(200).json({
@@ -148,7 +143,6 @@ router.patch("/:id/availability", async (req, res) => {
   try {
     const { availability } = req.body;
 
-    // Ensure availability is a valid number
     if (availability < 0 || typeof availability !== "number") {
       return res
         .status(400)

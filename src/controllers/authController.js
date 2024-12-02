@@ -15,6 +15,33 @@ app.controller("AuthController", function ($scope, $http) {
     password: "",
   };
 
+  // untuk forgot password
+  $scope.forgotPasswordData = {
+    email: "",
+    newPassword: "",
+  };
+
+  $scope.forgotPassword = function () {
+  const { email, newPassword } = $scope.forgotPasswordData;
+
+  if (!email || !newPassword) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  $http
+    .post("/forgot-password", $scope.forgotPasswordData)
+    .then((response) => {
+      alert(response.data); // Tampilkan pesan berhasil
+      $scope.forgotPasswordData = {}; // Reset data form
+      // Redirect user to login page
+      window.location.href = "/login-and-signup";
+    })
+    .catch((error) => {
+      alert(error.data || "Error resetting password.");
+    });
+  };
+
   // Sign Up Function
   $scope.signup = function () {
     if ($scope.signupData.password !== $scope.signupData.confirmPassword) {
