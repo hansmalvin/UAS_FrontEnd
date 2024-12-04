@@ -437,9 +437,8 @@ main {
 
 /* End Footer */
 
-
-/* css training */
-.trainingUser .carousel-container {
+/* CSS User View */
+.carousel-container {
   overflow-x: auto;
   display: flex;
   gap: 16px;
@@ -447,7 +446,7 @@ main {
   scroll-snap-type: x mandatory;
 }
 
-.trainingUser .training-card {
+.userView-card {
   flex: 0 0 auto;
   scroll-snap-align: center;
   border-radius: 8px;
@@ -457,50 +456,32 @@ main {
   flex-direction: column;
 }
 
-.trainingUser .training-card img {
+.userView-card img {
   max-width: 100%;
   height: 180px;
   object-fit: cover;
   border-radius: 8px 8px 0 0;
 }
 
-.trainingUser .training-card .card-body {
+.userView-card .card-body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
 }
 
-.trainingUser .training-card .card-link {
+.userView-card .card-link {
   margin-top: 8px;
 }
 
-.trainingUser .todolist-button {
+.todolist-button {
   position: fixed;
   top: 20px;
   right: 20px;
 }
 
-.trainingUser .add-to-todolist-button {
+.add-to-todolist-button {
   margin-top: auto;
 }
 
-.menuAdmin .menu-card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.menuAdmin .file-input {
-  margin-top: 10px;
-}
-
-.trainingAdmin .training-card img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.trainingAdmin .file-input {
-  margin-top: 10px;
-}
+/* End User View */

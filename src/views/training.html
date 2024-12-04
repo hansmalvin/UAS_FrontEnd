@@ -13,56 +13,10 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
-    <style>
-      .carousel-container {
-        overflow-x: auto;
-        display: flex;
-        gap: 16px;
-        padding: 10px;
-        scroll-snap-type: x mandatory;
-      }
-
-      .training-card {
-        flex: 0 0 auto;
-        scroll-snap-align: center;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        width: 300px;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .training-card img {
-        max-width: 100%;
-        height: 180px;
-        object-fit: cover;
-        border-radius: 8px 8px 0 0;
-      }
-
-      .training-card .card-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-      }
-
-      .training-card .card-link {
-        margin-top: 8px;
-      }
-
-      .todolist-button {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-      }
-
-      .add-to-todolist-button {
-        margin-top: auto;
-      }
-    </style>
+    <style></style>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   </head>
-  <body ng-controller="TrainingController" class="trainingUser">
+  <body ng-controller="TrainingController">
     <!-- Navbar -->
     <nav class="navbar sticky-top navbar-expand-lg">
       <div class="container">
@@ -189,7 +143,7 @@
       <!-- Carousel untuk menampilkan pelatihan -->
       <div class="carousel-container">
         <div
-          class="card training-card"
+          class="card userView-card"
           ng-repeat="training in trainings track by $index"
         >
           <img
@@ -287,6 +241,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="trainingController.js"></script>
+    <script src="todolistController.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"
       async
