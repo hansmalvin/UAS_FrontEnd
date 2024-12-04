@@ -95,7 +95,6 @@ router.put("/:id", upload.single("img"), async (req, res) => {
   const menuId = req.params.id;
 
   try {
-    // Validate ObjectId
     if (!mongoose.Types.ObjectId.isValid(menuId)) {
       return res.status(400).json({ error: "Invalid menu ID" });
     }
@@ -137,7 +136,7 @@ router.put("/:id", upload.single("img"), async (req, res) => {
 
 /**
  * PATCH /menus/:id/availability
- * Update availability of a specific menu
+ * Update availability dari menu secara spesifik
  */
 router.patch("/:id/availability", async (req, res) => {
   try {

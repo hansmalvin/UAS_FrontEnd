@@ -293,11 +293,11 @@ app.controller("ToDoListController", function ($scope, $http) {
       .post("/todolist", {
         idTraining: trainingId,
         idUser: userId,
-        priority: 1, // Priority default
+        priority: 1, 
       })
       .then((response) => {
         alert("ToDo added successfully!");
-        $scope.getToDoList(); // Refresh daftar todo-list
+        $scope.getToDoList();
       })
       .catch((error) => {
         console.error("Error adding ToDo:", error);
@@ -325,7 +325,6 @@ app.controller("ToDoListController", function ($scope, $http) {
   $scope.updatePriority = function (todoId, newPriority) {
     console.log("Received ToDo ID:", todoId, "New Priority:", newPriority); // Debugging nilai todoId
 
-    // Validasi ID
     if (!todoId) {
       alert("SALAH ID: ID yang diberikan tidak valid.");
       console.error("Invalid ToDo ID:", todoId); // Log kesalahan untuk debugging
