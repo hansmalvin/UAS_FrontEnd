@@ -117,7 +117,7 @@ app.controller("ToDoListController", function ($scope, $http) {
         })
         .then((response) => {
           alert("ToDo added successfully!");
-          $scope.getToDoList(); // Refresh daftar todo-list
+          $scope.getToDoList();
         })
         .catch((error) => {
           console.error("Error adding ToDo:", error);

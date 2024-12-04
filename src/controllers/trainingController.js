@@ -84,6 +84,7 @@ app.controller("TrainingController", function ($scope, $http) {
   $scope.updateTraining = function () {
     if (!$scope.selectedTraining || !$scope.selectedTraining._id) {
       alert("Invalid training ID");
+      $scope.getTrainings();
       return;
     }
 

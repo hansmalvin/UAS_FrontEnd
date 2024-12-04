@@ -69,6 +69,7 @@ app.controller("MenuController", function ($scope, $http) {
       })
       .then(() => {
         alert("Menu added successfully!");
+        $scope.getMenus();
         $scope.resetNewMenu();
       })
       .catch((error) => {
@@ -87,6 +88,7 @@ app.controller("MenuController", function ($scope, $http) {
   $scope.updateMenu = function () {
     if (!$scope.selectedMenu || !$scope.selectedMenu._id) {
       alert("Invalid menu ID");
+      $scope.getMenus();
       return;
     }
 

@@ -10,7 +10,7 @@ require("dotenv").config();
 
 const staticRoute = require("./src/routes/route");
 // test validator
-const { signupValidators, loginValidators, } = require("./src/validators/users-validator");
+const { signupValidators, loginValidators, forgotPasswordValidators,} = require("./src/validators/users-validator");
 const User = require("./src/models/users-schema");
 
 const app = express();
@@ -267,17 +267,12 @@ app.delete("/api/users/:id", isAuth, async (req, res) => {
   }
 });
 
-// const forgotPasswordValidators = Joi.object({
-//   email: Joi.string().email().required(),
-//   newPassword: Joi.string().min(6).required(),
-// });
-
 // test forgot password
 app.post("/forgot-password", async (req, res) => {
-  // const { error } = forgotPasswordValidators.validate(req.body);
-  // if (error) {
-  //   return res.status(400).send(error.details[0].message);
-  // } joi
+  const { error } = forgotPasswordValidators.validate(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
   const { email, newPassword } = req.body;
 
   try {
@@ -346,6 +341,9 @@ app.use("/todolist", todolistRoutes);
 
 const menuRoutes = require("./src/routes/menuRoutes"); 
 app.use("/menus", menuRoutes);
+
+const contactRoutes = require("./src/routes/contactRoutes");
+app.use("/contacts", contactRoutes);
 
 // belom dibuat
 // const usersRoutes = require("./src/routes/usersRoutes"); 

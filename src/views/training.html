@@ -39,7 +39,7 @@
               <a class="nav-link" href="#">Destinations</a>
             </li>
             <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
             <li class="nav-item">
               <a class="nav-link" href="/login-and-signup">Login</a>
             </li>
@@ -59,6 +59,7 @@
         tabindex="-1"
         id="todolistOffcanvas"
         aria-labelledby="todolistOffcanvasLabel"
+        ng-init="getToDoList()"
       >
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="todolistOffcanvasLabel">
@@ -135,7 +136,7 @@
 
           <!-- Jika tidak ada item -->
           <div ng-if="!todoTrainings.length" class="text-center mt-4">
-            <p>No items in your todolist.</p>
+            <p>No items in your todolist. Try refreshing</p>
           </div>
         </div>
       </div>
