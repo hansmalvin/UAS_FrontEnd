@@ -91,9 +91,8 @@ router.put("/:id", upload.single("img"), async (req, res) => {
   const trainingId = req.params.id;
 
   try {
-    console.log("Received training ID from client:", trainingId);
     if (!mongoose.Types.ObjectId.isValid(trainingId)) {
-      console.log("ID is invalid:", trainingId); // Debug
+      console.log("ID is invalid:", trainingId);
       return res.status(400).json({ error: "Invalid training ID waduh" });
     }
 
@@ -101,7 +100,7 @@ router.put("/:id", upload.single("img"), async (req, res) => {
 
     const training = await Training.findById(trainingId);
     if (!training) {
-      console.log("Training not found for ID:", trainingId); // Debug
+      console.log("Training not found for ID:", trainingId);
       return res.status(404).json({ error: "Training not found" });
     }
     if (title) training.title = title;

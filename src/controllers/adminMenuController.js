@@ -16,7 +16,6 @@ app.controller("MenuController", function ($scope, $http) {
     $http
       .get("/menus")
       .then((response) => {
-        console.log("Fetched menus:", response.data); 
         $scope.menus = response.data;
       })
       .catch((error) => {
@@ -84,8 +83,6 @@ app.controller("MenuController", function ($scope, $http) {
       formData.append("img", $scope.selectedMenu.img);
     }
 
-    console.log("Image selected for update:", $scope.selectedMenu.img);
-    console.log("Sending update for menu ID:", $scope.selectedMenu._id);
     console.log("FormData being sent:");
     formData.forEach((value, key) => {
       console.log(`${key}:`, value);
