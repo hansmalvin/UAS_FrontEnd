@@ -2,11 +2,12 @@ const app = angular.module("authApp", []);
 
 app.controller("AuthController", function ($scope, $http) {
   // Data untuk Sign Up
-  $scope.signupData = {
-    username: "",
-    email: "",
-    password: "",
-  };
+  // $scope.signupData = {
+  //   username: "",
+  //   email: "",
+  //   password: "",
+  //   confirmPassword: ""
+  // };
 
   // Data untuk Login
   $scope.loginData = {
@@ -14,10 +15,47 @@ app.controller("AuthController", function ($scope, $http) {
     password: "",
   };
 
+  // untuk forgot password
+  $scope.forgotPasswordData = {
+    email: "",
+    newPassword: "",
+  };
+
+  $scope.forgotPassword = function () {
+  const { email, newPassword } = $scope.forgotPasswordData;
+
+  if (!email || !newPassword) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  $http
+    .post("/forgot-password", $scope.forgotPasswordData)
+    .then((response) => {
+      alert(response.data); // Tampilkan pesan berhasil
+      $scope.forgotPasswordData = {}; // Reset data form
+      // Redirect user to login page
+      window.location.href = "/login-and-signup";
+    })
+    .catch((error) => {
+      alert(error.data || "Error resetting password.");
+    });
+  };
+
   // Sign Up Function
   $scope.signup = function () {
+    if ($scope.signupData.password !== $scope.signupData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    const signupData = { 
+      username: $scope.signupData.username, 
+      email: $scope.signupData.email, 
+      password: $scope.signupData.password,
+      confirmPassword: $scope.signupData.confirmPassword,
+    };
     $http
-      .post("/signup", $scope.signupData)
+      .post("/signup", signupData)
       .then((response) => {
         alert(response.data);
         $scope.signupData = {};
@@ -26,6 +64,9 @@ app.controller("AuthController", function ($scope, $http) {
         alert(error.data);
       });
   };
+  
+  
+
 
   // Login Function
   $scope.login = function () {

@@ -1,30 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="menuApp">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Menu</title>
+    <title>Menu Carousel</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"
-    />
-    <link 
-    rel="stylesheet" 
-    href="/styles.css" 
-    />
+    <link rel="stylesheet" href="/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-
   </head>
-  <body>
-    <!-- Start Navbar -->
+  <body ng-controller="MenuController">
+    <!-- Navbar -->
     <nav class="navbar sticky-top navbar-expand-lg">
       <div class="container">
         <a class="navbar-brand fw-bold DancingScript" href="/">TaraFit</a>
@@ -44,11 +36,8 @@
             <li class="nav-item">
               <a class="nav-link active" href="/menu">Menu</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Destinations</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="/">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
             <li class="nav-item">
               <a class="nav-link" href="/login-and-signup">Login</a>
             </li>
@@ -56,10 +45,43 @@
         </div>
       </div>
     </nav>
-    <!-- End Navbar -->
 
-    <!-- Start Footer -->
+    <!-- Content -->
+    <div class="container my-5">
+      <h1 class="mb-4">Our Menu</h1>
 
+      <!-- Carousel untuk menampilkan menu -->
+      <div class="carousel-container">
+        <div
+          class="card userView-card"
+          ng-repeat="menu in menus track by $index"
+        >
+          <img
+            class="lazy"
+            ng-src="data:{{menu.img.contentType}};base64,{{menu.img.data}}"
+            alt="Menu Image"
+            loading="lazy"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ menu.name_menu }}</h5>
+            <p class="card-text">{{ menu.description }}</p>
+            <p><strong>Category:</strong> {{ menu.category }}</p>
+            <p><strong>Availability:</strong> {{ menu.availability }}</p>
+
+            <!-- Link ke detail menu -->
+            <a
+              ng-href="{{ menu.link }}"
+              class="btn btn-outline-primary card-link"
+              target="_blank"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
     <footer class="footer-container">
       <div class="container p-4">
         <div class="row">
@@ -109,9 +131,12 @@
       <div class="footer-copyright DancingScript">© 2024 Copyright TaraFit</div>
     </footer>
 
-    <!-- End Footer -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/authController.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="menuController.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"
+      async
+    ></script>
   </body>
 </html>

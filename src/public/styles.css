@@ -21,23 +21,23 @@
 
 [data-theme="dark"] {
   /* 2 Theme */
-  --color-1: #a2836e; 
-  --color-2: #c19a34; 
+  --color-1: #a2836e;
+  --color-2: #c19a34;
   --color-3: #4b4237;
-  --color-4: #912d2b; 
-  --color-5: #2c3a3a; 
-  --color-6: #d17022; 
-  --color-7: #2e2e2e; 
-  --color-8: #508285; 
-  --color-9: #f1f1f1; 
-  --color-10: #e0e0e0; 
-  --color-11: #121212; 
-  --color-12: #242424; 
-  --color-13: #519fd9; 
-  --color-14: #444444; 
-  --color-15: #636363; 
-  --color-16: #858585; 
-  --color-17: #752d2e; 
+  --color-4: #912d2b;
+  --color-5: #2c3a3a;
+  --color-6: #d17022;
+  --color-7: #2e2e2e;
+  --color-8: #508285;
+  --color-9: #f1f1f1;
+  --color-10: #e0e0e0;
+  --color-11: #121212;
+  --color-12: #242424;
+  --color-13: #519fd9;
+  --color-14: #444444;
+  --color-15: #636363;
+  --color-16: #858585;
+  --color-17: #752d2e;
 }
 
 .custom-btn {
@@ -49,7 +49,6 @@
 .custom-btn:hover {
   background-color: var(--color-17); /* Oranye lebih gelap saat hover */
 }
-
 
 /* Font untuk tulisan tangan */
 .DancingScript {
@@ -186,254 +185,303 @@ main {
   background: var(--color-9);
 }
 
-  .section-2 .card-overlay h5 {
-    font-size: 1.25rem;
-    line-height: 1.2;
-  }
+.section-2 .card-overlay h5 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
 
-  .section-2 .card-overlay p {
-    font-size: 0.875rem;
-    margin: 0;
-  }
+.section-2 .card-overlay p {
+  font-size: 0.875rem;
+  margin: 0;
+}
 
-  /* ========================
+/* ========================
      End Section 2
    ======================== */
 
-  /* ========================
+/* ========================
      Start Section 3
    ======================== */
 
-  .section-3 {
-    font-weight: bold;
-    font-size: 2rem;
-    text-align: center;
-    color: var(--color-10);
-    margin-top: 2rem;
-  }
+.section-3 {
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  color: var(--color-10);
+  margin-top: 2rem;
+}
 
-  .section-3 .owl-carousel,
-  .item {
-    text-align: left;
-    padding: 20px;
-    background: var(--color-11);
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+.section-3 .owl-carousel,
+.item {
+  text-align: left;
+  padding: 20px;
+  background: var(--color-11);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-  .section-3 .item img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    margin-bottom: 10px;
-  }
+.section-3 .item img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
 
-  .section-3 .item h5 {
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 10px 0 5px;
-    color: var(--color-10);
-  }
+.section-3 .item h5 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 10px 0 5px;
+  color: var(--color-10);
+}
 
-  .section-3 .item p {
-    font-size: 0.9rem;
-    color: var(--color-10);
-    margin-bottom: 10px;
-  }
+.section-3 .item p {
+  font-size: 0.9rem;
+  color: var(--color-10);
+  margin-bottom: 10px;
+}
 
-  .section-3 .owl-dots,
-  .owl-dot span {
-    width: 10px;
-    height: 10px;
-    background: var(--color-14);
-    border-radius: 50%;
-    margin: 5px;
-  }
+.section-3 .owl-dots,
+.owl-dot span {
+  width: 10px;
+  height: 10px;
+  background: var(--color-14);
+  border-radius: 50%;
+  margin: 5px;
+}
 
-  .section-3 .owl-dots .owl-dot.active span {
-    background: var(--color-13);
-  }
+.section-3 .owl-dots .owl-dot.active span {
+  background: var(--color-13);
+}
 
-  /* ========================
+/* ========================
      End Section 3
    ======================== */
 
-  /* ========================
+/* ========================
      Start Section 4
      ======================== */
-  .section-4 {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+.section-4 {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--color-10);
+}
 
-  .section-4 h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    color: var(--color-10);
-  }
+.section-4 h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
 
-  .section-4 .about-section p {
-    color: var(--color-10);
-  }
+.section-4 .about-section,
+.team-section {
+  padding: 50px;
+}
 
-  .section-4 .about-section,
-  .team-section {
-    padding: 50px;
-  }
+.section-4 .highlight- {
+  background-color: var(--color-15);
+  color: var(--color-11);
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
 
-  .section-4 .highlight- {
-    background-color: var(--color-15);
-    color: var(--color-11);
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 5px;
-  }
+.section-4 .image-placeholder {
+  background-color: var(--color-16);
+  color: var(--color-11);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 24px;
+  font-weight: bold;
+}
 
-  .section-4 .image-placeholder {
-    background-color: var(--color-16);
-    color: var(--color-11);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    font-size: 24px;
-    font-weight: bold;
-  }
+.section-4 .quote {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin: 20px 0;
+  text-align: center;
+}
 
-  .section-4 .quote {
-    font-size: 1.5rem;
-    font-style: italic;
-    margin: 20px 0;
-    text-align: center;
-  }
+.section-4 .team-member img {
+  width: 100%;
+  max-width: 150px;
+  border-radius: 50%;
+}
 
-  .section-4 .team-member img {
-    width: 100%;
-    max-width: 150px;
-    border-radius: 50%;
-  }
+.section-4 .team-stats {
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
 
-  .section-4 .team-stats {
-    font-size: 1.2rem;
-    margin-top: 20px;
-  }
+.section-4 .about-section .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  text-align: left;
+}
 
-  .section-4 .about-section .content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-    text-align: left;
-  }
-
-  .section-4 .about-section p {
-    margin: 0;
-    max-width: 90%;
-    line-height: 1.6;
-  }
-  /* ========================
+.section-4 .about-section p {
+  margin: 0;
+  max-width: 90%;
+  line-height: 1.6;
+}
+/* ========================
      End Section 4
    ======================== */
 
-  /* ========================
+/* ========================
      Start Section 5
    ======================== */
-  .section-5 .counter_area {
-    padding: 6.875rem 0 1.875rem;
-  }
 
-  .section-5 .single_counter {
-    position: relative;
-  }
+.section-5 {
+  color: var(--color-10);
+}
 
-  .section-5 .single_counter span {
-    font-size: 3rem;
-    background: var(--color-4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.section-5 .counter_area {
+  padding: 6.875rem 0 1.875rem;
+}
 
-  .section-5 .single_counter::after {
-    position: absolute;
-    content: "";
-    height: 70%;
-    width: 0.0063rem;
-    background-color: var(--color-9);
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    opacity: 0.15;
-  }
+.section-5 .single_counter {
+  position: relative;
+}
 
-  .section-5 .single_counter:last-child::after {
-    display: none;
-  }
-  /* ========================
+.section-5 .single_counter span {
+  font-size: 3rem;
+  background: var(--color-4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-5 .single_counter::after {
+  position: absolute;
+  content: "";
+  height: 70%;
+  width: 0.0063rem;
+  background-color: var(--color-9);
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  opacity: 0.15;
+}
+
+.section-5 .single_counter:last-child::after {
+  display: none;
+}
+/* ========================
      End Section 5
    ======================== */
 
-  /* ========================
+/* ========================
      Start Section 6
      ======================== */
 
-  /* ========================
+/* ========================
      End Section 6
    ======================== */
 
-  /* ========================
+/* ========================
      Start Section profil
    ======================== */
-  .geser {
-    margin-left: 3rem;
-  }
-  .akhir {
-    margin-right: 6rem;
-  }
-  /* ========================
+.geser {
+  margin-left: 3rem;
+}
+.akhir {
+  margin-right: 6rem;
+}
+/* ========================
      End Section profil
    ======================== */
 
-  /* ========================
+/* ========================
      End Main Content
    ======================== */
 
-  /* Start Footer */
-  .footer-container {
-    background-color: var(--color-7);
-  }
+/* Start Footer */
+.footer-container {
+  background-color: var(--color-7);
+}
 
-  .footer-title {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    color: var(--color-4);
-  }
+.footer-title {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: var(--color-4);
+}
 
-  .footer-text {
-    color: var(--color-17);
-  }
+.footer-text {
+  color: var(--color-17);
+}
 
-  .footer-link {
-    color: var(--color-6);
-    text-decoration: none;
-  }
+.footer-link {
+  color: var(--color-6);
+  text-decoration: none;
+}
 
-  .footer-link:hover {
-    color: var(--color-17);
-    text-decoration: none;
-  }
+.footer-link:hover {
+  color: var(--color-17);
+  text-decoration: none;
+}
 
-  .footer-table {
-    border-color: var(--color-17);
-  }
+.footer-table {
+  border-color: var(--color-17);
+}
 
-  .footer-copyright {
-    text-align: center;
-    padding: 1rem;
-    font-size: 1.4rem;
-    background-color: rgba(0, 0, 0, 0.2);
-    color: var(--color-17);
-  }
+.footer-copyright {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.4rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--color-17);
+}
 
-  /* End Footer */
+/* End Footer */
 
+/* CSS User View */
+.carousel-container {
+  overflow-x: auto;
+  display: flex;
+  gap: 16px;
+  padding: 10px;
+  scroll-snap-type: x mandatory;
+}
+
+.userView-card {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.userView-card img {
+  max-width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.userView-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.userView-card .card-link {
+  margin-top: 8px;
+}
+
+.todolist-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.add-to-todolist-button {
+  margin-top: auto;
+}
+
+/* End User View */
