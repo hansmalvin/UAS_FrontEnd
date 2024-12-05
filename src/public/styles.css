@@ -294,7 +294,7 @@ main {
   border-radius: 5px;
 }
 
-.section-4 .image-placeholder {
+.section-4 img {
   background-color: var(--color-16);
   color: var(--color-11);
   display: flex;
