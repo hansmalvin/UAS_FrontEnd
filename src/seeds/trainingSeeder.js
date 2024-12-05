@@ -12,10 +12,10 @@ async function seedTrainingData() {
 
     });
 
-    console.log("Connected to MongoDB!");
+    console.log("Connected to Mongo");
 
     await Training.deleteMany({});
-    console.log("Old training data deleted.");
+    console.log("Cleaning up existing data");
 
     const trainingData = [
       {
@@ -61,7 +61,7 @@ async function seedTrainingData() {
     ];
 
     await Training.insertMany(trainingData);
-    console.log("Training data seeded!");
+    console.log("Training data seed work");
 
     mongoose.connection.close();
   } catch (error) {

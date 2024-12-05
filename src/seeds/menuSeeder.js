@@ -12,10 +12,10 @@ async function seedMenuData() {
 
     });
 
-    console.log("Connected to MongoDB!");
+    console.log("Connected to Mongo");
 
     await Menu.deleteMany({});
-    console.log("Old menu data deleted.");
+    console.log("cleaning menu data");
 
     const menuData = [
       {
@@ -65,7 +65,7 @@ async function seedMenuData() {
     ];
 
     await Menu.insertMany(menuData);
-    console.log("menu data seeded!");
+    console.log("menu data seed work");
 
     mongoose.connection.close();
   } catch (error) {
