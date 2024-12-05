@@ -45,11 +45,8 @@
         </div>
       </div>
     </nav>
-
-    <!-- Content -->
     <div class="container my-5">
       <h1 class="mb-4">Our Menu</h1>
-
       <!-- Carousel untuk menampilkan menu -->
       <div class="carousel-container">
         <div
@@ -67,8 +64,6 @@
             <p class="card-text">{{ menu.description }}</p>
             <p><strong>Category:</strong> {{ menu.category }}</p>
             <p><strong>Availability:</strong> {{ menu.availability }}</p>
-
-            <!-- Link ke detail menu -->
             <a
               ng-href="{{ menu.link }}"
               class="btn btn-outline-primary card-link"
@@ -80,7 +75,6 @@
         </div>
       </div>
     </div>
-
     <!-- Footer -->
     <footer class="footer-container">
       <div class="container p-4">

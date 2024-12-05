@@ -44,12 +44,8 @@
         </div>
       </div>
     </nav>
-
-    <!-- Content -->
     <div class="container my-5">
       <h1 class="mb-4">Training List</h1>
-      <!-- <p>UserID: {{ user._id }}</p> -->
-
       <!-- Offcanvas -->
       <div
         class="offcanvas offcanvas-end"
@@ -76,19 +72,10 @@
             ng-repeat="item in todoTrainings track by $index"
           >
             <div class="card-body">
-              <!-- Pastikan title tampil -->
               <h5 class="card-title">{{ item.title }}</h5>
-
-              <!-- Cek apakah description tersedia -->
               <p class="card-text">
                 {{ item.training.description || 'No description available' }}
               </p>
-
-              <!-- Tampilkan ID Training -->
-              <!-- <p>ID Training: {{ item.idTraining }}</p>
-              <p>ID Training: {{ item.priority }}</p> -->
-
-              <!-- Tampilkan Link Training -->
               <a
                 ng-href="{{ item.training.link }}"
                 class="btn btn-primary btn-sm"
@@ -97,8 +84,6 @@
               >
                 View Training
               </a>
-
-              <!-- Input untuk Update Priority -->
               <div class="mb-3 mt-3">
                 <label for="priority-{{ item.idTraining }}" class="form-label">
                   Update Priority:
@@ -112,16 +97,12 @@
                   max="10"
                 />
               </div>
-
-              <!-- Tombol Update Priority -->
               <button
                 class="btn btn-success btn-sm"
                 ng-click="updatePriority(item.id, item.priority)"
               >
                 Update Priority
               </button>
-
-              <!-- Tombol Delete -->
               <button
                 class="btn btn-success btn-sm"
                 ng-click="deleteToDoList(item.id)"
@@ -130,15 +111,12 @@
               </button>
             </div>
           </div>
-
-          <!-- Jika tidak ada item -->
           <div ng-if="!todoTrainings.length" class="text-center mt-4">
             <p>No items in your todolist. Try refreshing</p>
           </div>
         </div>
       </div>
-
-      <!-- Carousel untuk menampilkan pelatihan -->
+      <!-- Carousel untuk menampilkan menu latihan -->
       <div class="carousel-container">
         <div
           class="card userView-card"
@@ -152,11 +130,8 @@
           />
           <div class="card-body">
             <h5 class="card-title">{{ training.title }}</h5>
-            <!-- <p class="card-title">{{ training._id }}</p> -->
             <p class="card-text">{{ training.description }}</p>
             <p><strong>Rating:</strong> {{ training.rating || 0 }} / 5</p>
-
-            <!-- Link ke detail pelatihan -->
             <a
               ng-href="{{ training.link }}"
               class="btn btn-outline-primary card-link"
@@ -164,11 +139,10 @@
             >
               Learn More
             </a>
-
             <!-- Tombol untuk menambahkan ke todolist -->
             <div ng-controller="ToDoListController">
               <button
-                class="btn btn-success w-100 add-to-todolist-button"
+                class="btn btn-success w-100 add-to-todolist-button mt-1"
                 ng-click="addToDoList(training._id)"
               >
                 Add to Todolist
@@ -186,7 +160,6 @@
         View Todolist
       </button>
     </div>
-
     <!-- Footer -->
     <footer class="footer-container">
       <div class="container p-4">

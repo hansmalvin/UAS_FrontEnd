@@ -10,5 +10,4 @@ router.use(express.static(path.join(__dirname, "../views")));
 router.use(express.static(path.join(__dirname, "../views/login")));
 
 
-
 module.exports = router;

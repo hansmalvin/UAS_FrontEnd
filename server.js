@@ -92,10 +92,12 @@ app.post("/signup", async (req, res) => {
     return res.status(400).send("Passwords do not match");
   }
   try {
+    // cek email sudah ada atau belum
     const alreadyUser = await User.findOne({ email });
     if (alreadyUser) {
       return res.status(400).send("Email already registered");
     }
+    // hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const newUser = new User({
@@ -137,6 +139,7 @@ app.post("/login", limiter, async (req, res) => {
       return res.status(400).send("Invalid credentials");
     }
 
+    // create session cookies dan session khusus user
     req.session.isAuth = true;
     req.session.user = {
       _id: user._id,
@@ -291,49 +294,7 @@ app.post("/forgot-password", async (req, res) => {
   }
 });
 
-// express routes
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/src/views/home.html");
-});
-
-// admin login
-app.get("/admin", (req, res) => {
-  res.sendFile(__dirname + "/src/views/login/loginAdmin.html");
-});
-
-app.get("/login-and-signup", (req, res) => {
-  res.sendFile(__dirname + "/src/views/login/login-and-signup.html");
-});
-
-app.get("/menu", isAuth, (req, res) => {
-  res.sendFile(__dirname + "/src/views/menu.html");
-});
-
-app.get("/training", isAuth, (req, res) => {
-  res.sendFile(__dirname + "/src/views/training.html");
-});
-
-app.get("/contact", (req, res) => {
-  res.sendFile(__dirname + "/src/views/contact.html");
-});
-
-app.get("/adminDashboard", isAdminAuth, (req, res) => {
-  res.sendFile(__dirname + "/src/views/adminDashboard.html");
-});
-
-app.get("/trainingDashboard", isAdminAuth, (req, res) => {
-  res.sendFile(__dirname + "/src/views/trainingDashboard.html");
-});
-
-app.get("/menuDashboard", isAdminAuth, (req, res) => {
-  res.sendFile(__dirname + "/src/views/menuDashboard.html");
-});
-
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
-
-// Routes
+// Routers
 const trainingRoutes = require("./src/routes/trainingRoutes");
 app.use("/trainings", trainingRoutes);
 
@@ -346,6 +307,51 @@ app.use("/menus", menuRoutes);
 const contactRoutes = require("./src/routes/contactRoutes");
 app.use("/contacts", contactRoutes);
 
-// belom dibuat
-// const usersRoutes = require("./src/routes/usersRoutes"); 
-// app.use("/users", usersRoutes);
+// express routes
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/src/views/home.html");
+});
+
+// admin login
+app.get("/admin", (req, res) => {
+  res.sendFile(__dirname + "/src/views/login/loginAdmin.html");
+});
+
+// user login
+app.get("/login-and-signup", (req, res) => {
+  res.sendFile(__dirname + "/src/views/login/login-and-signup.html");
+});
+
+// menu route
+app.get("/menu", isAuth, (req, res) => {
+  res.sendFile(__dirname + "/src/views/menu.html");
+});
+
+// training route
+app.get("/training", isAuth, (req, res) => {
+  res.sendFile(__dirname + "/src/views/training.html");
+});
+
+// contact route
+app.get("/contact", (req, res) => {
+  res.sendFile(__dirname + "/src/views/contact.html");
+});
+
+// admin dashboard route
+app.get("/adminDashboard", isAdminAuth, (req, res) => {
+  res.sendFile(__dirname + "/src/views/adminDashboard.html");
+});
+
+// training dashboard route
+app.get("/trainingDashboard", isAdminAuth, (req, res) => {
+  res.sendFile(__dirname + "/src/views/trainingDashboard.html");
+});
+
+// menu dashboard route
+app.get("/menuDashboard", isAdminAuth, (req, res) => {
+  res.sendFile(__dirname + "/src/views/menuDashboard.html");
+});
+
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});

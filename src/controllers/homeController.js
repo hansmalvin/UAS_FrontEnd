@@ -66,19 +66,19 @@ app.controller("HomeController", function ($scope, $http) {
 $(document).ready(function () {
   $(".owl-carousel").owlCarousel({
     loop: true, // Carousel berulang
-    margin: 20, // Spasi antar item
-    nav: true, // Tombol navigasi
-    dots: true, // Titik navigasi
-    autoplay: true, // Otomatis bergeser
-    autoplayTimeout: 3000, // Interval waktu autoplay (ms)
-    autoplayHoverPause: true, // Pause ketika mouse hover
-    smartSpeed: 800, // Kecepatan transisi (ms)
-    fluidSpeed: true, // Mengikuti fluiditas user scroll
-    navSpeed: 800, // Kecepatan navigasi (ms)
+    margin: 20,
+    nav: true,
+    dots: true,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true, 
+    smartSpeed: 800,
+    fluidSpeed: true, 
+    navSpeed: 800, 
     responsive: {
-      0: { items: 1 }, // 1 item untuk layar kecil
-      768: { items: 2 }, // 2 item untuk tablet
-      1200: { items: 3 }, // 3 item untuk layar besar
+      0: { items: 1 },
+      768: { items: 2 },
+      1200: { items: 3 }, 
     },
   });
 });
@@ -145,8 +145,8 @@ function toggleTheme() {
     themeIcon.classList.add("bi-moon"); // Ubah ke ikon dark
   }
 }
-// Cek tema yang tersimpan saat halaman dimuat
 
+// Cek tema yang tersimpan saat halaman dimuat
 document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme") || "light";
   document.documentElement.setAttribute("data-theme", savedTheme);

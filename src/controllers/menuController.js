@@ -1,14 +1,12 @@
 const app = angular.module("menuApp", []);
 
 app.controller("MenuController", function ($scope, $http) {
-  // Inisialisasi user
   $scope.user = {};
 
   $http.get("/user").then((response) => {
     $scope.user = response.data;
   });
 
-  // Menyimpan semua menu
   $scope.menus = [];
 
   // Data menu baru
@@ -29,7 +27,6 @@ app.controller("MenuController", function ($scope, $http) {
         $scope.menus = response.data;
         console.log("Menus loaded:", $scope.menus);
 
-        // Perbarui elemen lazy setelah data dimuat (jika menggunakan LazySizes)
         if (typeof lazySizes !== "undefined") {
           lazySizes.update();
         }
@@ -160,7 +157,6 @@ app.controller("MenuController", function ($scope, $http) {
     };
   };
 
-  // Inisialisasi data menu saat aplikasi dimuat
   $scope.getMenus();
 });
 

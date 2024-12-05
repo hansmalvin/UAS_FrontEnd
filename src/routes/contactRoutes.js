@@ -92,7 +92,6 @@ router.put("/:id", validateObjectId, async (req, res) => {
   }
 });
 
-// testing
 router.get("/all", async (req, res) => {
   try {
     const allMessages = await Contact.find({});

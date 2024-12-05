@@ -1,14 +1,6 @@
 const app = angular.module("authApp", []);
 
 app.controller("AuthController", function ($scope, $http) {
-  // Data untuk Sign Up
-  // $scope.signupData = {
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: ""
-  // };
-
   // Data untuk Login
   $scope.loginData = {
     email: "",
@@ -32,9 +24,8 @@ app.controller("AuthController", function ($scope, $http) {
   $http
     .post("/forgot-password", $scope.forgotPasswordData)
     .then((response) => {
-      alert(response.data); // Tampilkan pesan berhasil
-      $scope.forgotPasswordData = {}; // Reset data form
-      // Redirect user to login page
+      alert(response.data); 
+      $scope.forgotPasswordData = {}; 
       window.location.href = "/login-and-signup";
     })
     .catch((error) => {
@@ -64,9 +55,6 @@ app.controller("AuthController", function ($scope, $http) {
         alert(error.data);
       });
   };
-  
-  
-
 
   // Login Function
   $scope.login = function () {

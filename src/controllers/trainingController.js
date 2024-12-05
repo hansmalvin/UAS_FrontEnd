@@ -1,9 +1,7 @@
 const app = angular.module("trainingApp", []);
 
 app.controller("TrainingController", function ($scope, $http) {
-  // Inisialisasi user
   $scope.user = {};
-  // Menyimpan semua pelatihan
   $scope.trainings = [];
 
   $http.get("/user").then((response) => {
@@ -16,7 +14,7 @@ app.controller("TrainingController", function ($scope, $http) {
     description: "",
     link: "",
     img: null,
-    rating: 0, // Default rating
+    rating: 0, 
   };
 
   $scope.getTrainings = function () {
@@ -26,7 +24,6 @@ app.controller("TrainingController", function ($scope, $http) {
         $scope.trainings = response.data;
         console.log("Trainings loaded:", $scope.trainings);
 
-        // Perbarui elemen lazy setelah data dimuat
         if (typeof lazySizes !== "undefined") {
           lazySizes.update();
         }
@@ -36,7 +33,7 @@ app.controller("TrainingController", function ($scope, $http) {
       });
   };
 
-  // Menghapus pelatihan
+  // Menghapus latihan
   $scope.deleteTraining = function (trainingId) {
     $http
       .delete(`/trainings/${trainingId}`)
@@ -51,7 +48,7 @@ app.controller("TrainingController", function ($scope, $http) {
       });
   };
 
-  // Menambah pelatihan baru
+  // Menambah latihan baru
   $scope.addTraining = function () {
     const formData = new FormData();
     formData.append("title", $scope.newTraining.title);
@@ -119,7 +116,7 @@ app.controller("TrainingController", function ($scope, $http) {
       });
   };
 
-  // Mengupdate rating pelatihan
+  // Mengupdate rating latihan
   $scope.updateRating = function (trainingId, newRating) {
     if (
       newRating === undefined ||
@@ -142,7 +139,7 @@ app.controller("TrainingController", function ($scope, $http) {
       });
   };
 
-  // Reset data pelatihan baru
+  // Reset data latihan baru
   $scope.resetNewTraining = function () {
     $scope.newTraining = {
       title: "",
