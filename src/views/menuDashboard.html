@@ -16,15 +16,12 @@
   <body ng-controller="MenuController" class="menuAdmin">
     <div class="container-fluid">
       <h1>Menu Management</h1>
-
-      <!-- Tombol Navigasi ke Admin Dashboard -->
-      <a href="adminDashboard.html" class="btn btn-primary mt-3 mb-3">
+      <a href="adminDashboard" class="btn btn-primary mt-3 mb-3">
         Go to Admin Dashboard
       </a>
-      <a href="trainingDashboard.html" class="btn btn-primary mt-3 mb-3">
+      <a href="trainingDashboard" class="btn btn-primary mt-3 mb-3">
         Go to Training Dashboard
       </a>
-
       <!-- Form Tambah Menu -->
       <div class="card mb-4">
         <div class="card-header bg-primary text-white">Add New Menu</div>
@@ -68,7 +65,7 @@
               </div>
               <div class="col-md-3 mb-3">
                 <label for="availability" class="form-label"
-                  >Availability</label
+                  >Kesulitan</label
                 >
                 <input
                   type="number"
@@ -108,7 +105,6 @@
           </form>
         </div>
       </div>
-
       <!-- List Menu -->
       <div class="row" ng-if="menus.length > 0">
         <div class="col-md-4 mb-4" ng-repeat="menu in menus track by $index">
@@ -123,7 +119,7 @@
               <h5 class="card-title">{{ menu.name_menu }}</h5>
               <p class="card-text">{{ menu.description }}</p>
               <p><strong>Category:</strong> {{ menu.category }}</p>
-              <p><strong>Availability:</strong> {{ menu.availability }}</p>
+              <p><strong>Kesulitan:</strong> {{ menu.availability }}</p>
               <a
                 href="{{ menu.link }}"
                 target="_blank"
@@ -148,7 +144,6 @@
           </div>
         </div>
       </div>
-
       <!-- Modal Update Menu -->
       <div
         class="modal fade"
@@ -211,7 +206,7 @@
                   </div>
                   <div class="col-md-3 mb-3">
                     <label for="update-availability" class="form-label"
-                      >Availability</label
+                      >Kesulitan</label
                     >
                     <input
                       type="number"

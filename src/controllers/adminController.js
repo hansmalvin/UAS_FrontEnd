@@ -23,7 +23,6 @@ app.controller("AdminController", function ($scope, $http) {
 app.controller("AdminDashboardController", function ($scope, $http) {
   $scope.searchQuery = "@";
   $scope.userMessages = [];
-  // get all users
   $scope.getUsers = function () {
     $http.get("/users")
       .then((response) => {
@@ -34,8 +33,7 @@ app.controller("AdminDashboardController", function ($scope, $http) {
       });
   };
 
-  // testing
-    $scope.loadMessages = function () {
+  $scope.loadMessages = function () {
     $http.get("/contacts/all")
       .then((response) => {
         $scope.userMessages = response.data.data;
@@ -59,25 +57,25 @@ app.controller("AdminDashboardController", function ($scope, $http) {
       });
   };
 
-// Fungsi relevansi untuk sorting
+  // Fungsi untuk sorting
   $scope.calculateRelevance = function (user, query) {
     const usernameIndex = (user.username || "").toLowerCase().indexOf(query);
     const emailIndex = (user.email || "").toLowerCase().indexOf(query);
 
-    // Jika query tidak ditemukan, berikan nilai sangat rendah
+    // Jika query tidak ditemukan, kasih dari yang paling rendah
     if (usernameIndex === -1 && emailIndex === -1) return Infinity;
 
-    // Prioritaskan username lebih tinggi dari email
+    // Prioritas username lebih tinggi dari email
     if (usernameIndex !== -1 && emailIndex !== -1) {
       return Math.min(usernameIndex, emailIndex);
     }
     return usernameIndex !== -1 ? usernameIndex : emailIndex;
   };
 
-  // Filter dan sorting data berdasarkan query
+  // Filter dan sorting berdasarkan query
   $scope.filterAndSortUsers = function () {
     if (!$scope.searchQuery) {
-      return $scope.users; // Tampilkan semua jika query kosong
+      return $scope.users;
     }
 
     const query = $scope.searchQuery.toLowerCase();

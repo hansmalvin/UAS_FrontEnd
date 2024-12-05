@@ -8,8 +8,8 @@ const signupValidators = Joi.object({
     .required()
     .messages({
       "string.pattern.base":
-        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*).",
-      "string.min": "Password must be at least 6 characters long.",
+        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
+      "string.min": "Password must at least 6 characters long.",
       "any.required": "Password is required.",
     }),
   confirmPassword: Joi.string().valid(Joi.ref("password")).required(),
@@ -27,8 +27,8 @@ const forgotPasswordValidators = Joi.object({
     .required()
     .messages({
       "string.pattern.base":
-        "New password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*).",
-      "string.min": "New password must be at least 6 characters long.",
+        "New password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
+      "string.min": "New password must at least 6 characters long.",
       "any.required": "New password is required.",
     }),
 });

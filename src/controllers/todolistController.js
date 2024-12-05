@@ -2,10 +2,9 @@ app.controller("ToDoListController", function ($scope, $http) {
     // Data untuk training baru
     $scope.newTraining = {
       idTraining: "",
-      priority: 0, // Default priority
+      priority: 0, 
     };
   
-    // Menyimpan semua todo-list
     $scope.todolist = [];
   
     $scope.validateToDo = function (idTraining, priority) {
@@ -20,7 +19,6 @@ app.controller("ToDoListController", function ($scope, $http) {
       return true;
     };
   
-    // Mendapatkan semua todo-list
     $scope.getToDoList = function () {
       // Pastikan latihan sudah diambil sebelum mencocokkan
       $scope.getTrainings().then(() => {
@@ -36,7 +34,7 @@ app.controller("ToDoListController", function ($scope, $http) {
             $scope.todoTrainings = todoListData
               .map((todo) => {
                 const matchedTraining = $scope.trainings.find(
-                  (training) => String(training._id) === String(todo.idTraining) // Pastikan tipe data sama
+                  (training) => String(training._id) === String(todo.idTraining) 
                 );
   
                 return {
@@ -66,12 +64,11 @@ app.controller("ToDoListController", function ($scope, $http) {
       });
     };
   
-    // Perbaikan fungsi getTrainings agar mendukung Promise
     $scope.getTrainings = function () {
       return $http
         .get("/trainings")
         .then((response) => {
-          console.log("Fetched trainings:", response.data); // Debug data dari backend
+          console.log("Fetched trainings:", response.data); 
           $scope.trainings = response.data;
         })
         .catch((error) => {
@@ -113,7 +110,7 @@ app.controller("ToDoListController", function ($scope, $http) {
         .post("/todolist", {
           idTraining: trainingId,
           idUser: userId,
-          priority: 1, // Priority default
+          priority: 1,
         })
         .then((response) => {
           alert("ToDo added successfully!");
@@ -143,30 +140,28 @@ app.controller("ToDoListController", function ($scope, $http) {
     };
   
     $scope.updatePriority = function (todoId, newPriority) {
-      console.log("Received ToDo ID:", todoId, "New Priority:", newPriority); // Debugging nilai todoId
-  
       // Validasi ID
       if (!todoId) {
         alert("SALAH ID: ID yang diberikan tidak valid.");
-        console.error("Invalid ToDo ID:", todoId); // Log kesalahan untuk debugging
+        console.error("Invalid ToDo ID:", todoId); 
         return;
       }
   
       if (newPriority < 1 || newPriority > 10) {
         alert("Priority harus antara 1 dan 10.");
-        console.error("Invalid Priority: Out of range (1-10).", newPriority); // Log kesalahan
+        console.error("Invalid Priority: Out of range (1-10).", newPriority);
         return;
       }
   
-      // Lakukan permintaan HTTP PUT untuk memperbarui Priority
+      // update priority
       $http
         .put(`/todolist/${todoId}`, { priority: newPriority })
         .then(() => {
           alert("Priority berhasil diperbarui!");
-          $scope.getToDoList(); // Perbarui daftar ToDo
+          $scope.getToDoList(); 
         })
         .catch((error) => {
-          console.error("Error updating priority:", error); // Log kesalahan untuk debugging
+          console.error("Error updating priority:", error); 
           alert(
             `Error updating priority: ${
               error.data?.error || error.statusText || "Unknown error"
@@ -175,7 +170,6 @@ app.controller("ToDoListController", function ($scope, $http) {
         });
     };
   
-    // Inisialisasi data todo-list saat aplikasi dimuat
     $scope.getToDoList();
   });
   

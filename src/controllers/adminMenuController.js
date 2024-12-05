@@ -1,24 +1,22 @@
 const app = angular.module("menuApp", []);
 
 app.controller("MenuController", function ($scope, $http) {
-  // Data pelatihan baru
   $scope.newMenu = {
     title: "",
     description: "",
     link: "",
     img: null,
-    rating: 0, // Default rating
+    rating: 0, 
   };
 
-  // Menyimpan semua pelatihan
   $scope.menus = [];
 
-  // Mendapatkan semua pelatihan
+  // Mendapatkan semua latihan
   $scope.getMenus = function () {
     $http
       .get("/menus")
       .then((response) => {
-        console.log("Fetched menus:", response.data); // Debug data dari backend
+        console.log("Fetched menus:", response.data); 
         $scope.menus = response.data;
       })
       .catch((error) => {
@@ -26,7 +24,7 @@ app.controller("MenuController", function ($scope, $http) {
       });
   };
 
-  // Menghapus pelatihan
+  // Menghapus latihan
   $scope.deleteMenu = function (menuId) {
     $http
       .delete(`/menus/${menuId}`)
@@ -41,7 +39,7 @@ app.controller("MenuController", function ($scope, $http) {
       });
   };
 
-  // Menambah pelatihan baru
+  // Menambah latihan baru
   $scope.addMenu = function () {
     const formData = new FormData();
     formData.append("title", $scope.newMenu.title);
@@ -132,7 +130,6 @@ app.controller("MenuController", function ($scope, $http) {
     };
   };
 
-  // Inisialisasi data pelatihan saat aplikasi dimuat
   $scope.getMenus();
 });
 
