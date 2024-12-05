@@ -4,7 +4,7 @@ angular.module("contactApp", []).controller("contactController", function ($scop
   $scope.selectedMessage = {};
 
   $scope.loadMessages = function () {
-    $http.get("/messages")
+    $http.get("/contacts")
       .then((response) => {
         $scope.userMessages = response.data.data;
       })
@@ -16,7 +16,7 @@ angular.module("contactApp", []).controller("contactController", function ($scop
 
   // Send message
   $scope.sendMessage = function () {
-    $http.post("/messages", $scope.contactForm)
+    $http.post("/contacts", $scope.contactForm)
       .then((response) => {
         alert("Message sent successfully!");
         $scope.contactForm = {};
@@ -30,7 +30,7 @@ angular.module("contactApp", []).controller("contactController", function ($scop
 
   // Delete message
   $scope.deleteMessage = function (id) {
-    $http.delete(`/messages/${id}`)
+    $http.delete(`/contacts/${id}`)
       .then((response) => {
         alert("Message deleted successfully!");
         $scope.loadMessages();
@@ -42,7 +42,7 @@ angular.module("contactApp", []).controller("contactController", function ($scop
   };
 
   $scope.editMessage = function () {
-    $http.put(`/messages/${$scope.selectedMessage._id}`, $scope.selectedMessage)
+    $http.put(`/contacts/${$scope.selectedMessage._id}`, $scope.selectedMessage)
       .then((response) => {
         alert("Message updated successfully!");
         $scope.loadMessages(); 

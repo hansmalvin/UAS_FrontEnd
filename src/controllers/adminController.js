@@ -21,6 +21,8 @@ app.controller("AdminController", function ($scope, $http) {
 
 
 app.controller("AdminDashboardController", function ($scope, $http) {
+  $scope.searchQuery = "@";
+  $scope.userMessages = [];
   // get all users
   $scope.getUsers = function () {
     $http.get("/users")
@@ -29,6 +31,31 @@ app.controller("AdminDashboardController", function ($scope, $http) {
       })
       .catch((error) => {
         alert("Error fetching users.");
+      });
+  };
+
+  // testing
+    $scope.loadMessages = function () {
+    $http.get("/contacts/all")
+      .then((response) => {
+        $scope.userMessages = response.data.data;
+      })
+      .catch((error) => {
+        console.error("Error loading messages:", error);
+        alert("Error loading messages.");
+      });
+  };
+
+  // Delete a message
+  $scope.deleteMessage = function (id) {
+    $http.delete(`/contacts/${id}`)
+      .then((response) => {
+        alert("Message deleted successfully!");
+        $scope.loadMessages();
+      })
+      .catch((error) => {
+        console.error("Error deleting message:", error);
+        alert("Error deleting message.");
       });
   };
 
@@ -89,6 +116,5 @@ app.controller("AdminDashboardController", function ($scope, $http) {
   };
   
   $scope.getUsers();
+  $scope.loadMessages();
 });
-  
-  

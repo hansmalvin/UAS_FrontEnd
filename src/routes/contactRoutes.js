@@ -14,7 +14,7 @@ const validateObjectId = (req, res, next) => {
 router.get("/", async (req, res) => {
   try {
     if (!req.session.isAuth || !req.session.user) {
-      return res.status(401).json({ error: "User not authenticated" });
+      return res.status(401).json({ error: "Please Login first or Sign up" });
     }
 
     const idUser = req.session.user._id;
@@ -28,11 +28,9 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  console.log("Request body:", req.body);
-  console.log("Session data:", req.session);
   try {
     if (!req.session.isAuth || !req.session.user) {
-      return res.status(401).json({ error: "User not authenticated" });
+      return res.status(401).json({ error: "Please Login first or Sign up" });
     }
 
     const { title, message } = req.body;
@@ -93,5 +91,17 @@ router.put("/:id", validateObjectId, async (req, res) => {
     res.status(500).json({ error: "Error updating message" });
   }
 });
+
+// testing
+router.get("/all", async (req, res) => {
+  try {
+    const allMessages = await Contact.find({});
+    res.status(200).json({ message: "All messages retrieved successfully", data: allMessages });
+  } catch (err) {
+    console.error("Error retrieving all messages:", err);
+    res.status(500).json({ error: "Error retrieving all messages" });
+  }
+});
+
 
 module.exports = router;

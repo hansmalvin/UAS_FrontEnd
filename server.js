@@ -9,7 +9,6 @@ const rateLimit = require("express-rate-limit");
 require("dotenv").config();
 
 const staticRoute = require("./src/routes/route");
-// test validator
 const { signupValidators, loginValidators, forgotPasswordValidators,} = require("./src/validators/users-validator");
 const User = require("./src/models/users-schema");
 
@@ -33,6 +32,7 @@ const store = new MongoDBSession({
   collection: dbColl,
 });
 
+// session cookies
 app.use(
   session({
     secret: "key that will sign cookie",
@@ -45,6 +45,7 @@ app.use(
   })
 );
 
+// cors
 app.use(
   cors({
     origin: origin,
@@ -63,9 +64,10 @@ const isAuth = (req, res, next) => {
   }
 };
 
+// login limiter
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000,
-  max: 5,
+  max: 3,
   message: "try again in 1 minute",
 });
 
@@ -79,7 +81,7 @@ const isAdminAuth = (req, res, next) => {
   }
 };
 
-//Signup
+//Signup by user
 app.post("/signup", async (req, res) => {
   const { error } = signupValidators.validate(req.body);
   if (error) {
@@ -109,6 +111,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+// login limiter untuk user login
 app.post("/login", limiter, async (req, res) => {
   const { error } = loginValidators.validate(req.body);
   if (error) {
@@ -118,7 +121,7 @@ app.post("/login", limiter, async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // regex email ditaro sini dulu nanti baru dipindahin ke validator, pw regex belum
+    // regex email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).send("Invalid email format");
@@ -146,6 +149,7 @@ app.post("/login", limiter, async (req, res) => {
   }
 });
 
+// logout by user
 app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -243,13 +247,9 @@ app.delete("/users/:id", isAdminAuth, async (req, res) => {
   }
 });
 
-// delete user by user /api bisa diapus
+// delete user by user
 app.delete("/api/users/:id", isAuth, async (req, res) => {
   const userId = req.params.id;
-
-  // if (req.session.user._id !== userId) {
-  //   return res.status(403).send("Unauthorized action");
-  // }
 
   try {
     const deletedUser = await User.findByIdAndDelete(userId);
@@ -267,7 +267,7 @@ app.delete("/api/users/:id", isAuth, async (req, res) => {
   }
 });
 
-// test forgot password
+// forgot password by user
 app.post("/forgot-password", async (req, res) => {
   const { error } = forgotPasswordValidators.validate(req.body);
   if (error) {
@@ -291,7 +291,7 @@ app.post("/forgot-password", async (req, res) => {
   }
 });
 
-
+// express routes
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/src/views/home.html");
 });
@@ -333,6 +333,7 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
+// Routes
 const trainingRoutes = require("./src/routes/trainingRoutes");
 app.use("/trainings", trainingRoutes);
 
