@@ -123,9 +123,6 @@ router.put("/:id", validateObjectId, async (req, res) => {
     const { id } = req.params;
     const { priority } = req.body;
 
-    console.log("Received ID for update:", id);
-    console.log("New Priority:", priority);
-
     if (priority < 1 || priority > 10) {
       return res.status(400).json({ error: "Priority harus antara 1 dan 10." });
     }

@@ -20,8 +20,7 @@ const dbColl = process.env.DB_COLLECTION;
 
 mongoose
   .connect(url, {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
+
   })
   .then((res) => {
     console.log("mongodb Connected");
@@ -158,7 +157,6 @@ app.post("/logout", (req, res) => {
     if (err) {
       return res.status(500).send("Error logging out");
     }
-    // res.clearCookie("connect.sid");
     res.status(200).send("Logged out successfully");
   });
 });

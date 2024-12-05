@@ -61,7 +61,7 @@ async function seedTrainingData() {
     ];
 
     await Training.insertMany(trainingData);
-    console.log("Training data seed work");
+    console.log("worked");
 
     mongoose.connection.close();
   } catch (error) {

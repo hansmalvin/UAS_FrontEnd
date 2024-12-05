@@ -94,8 +94,6 @@ app.controller("TrainingController", function ($scope, $http) {
       formData.append("img", $scope.selectedTraining.img);
     }
 
-    console.log("Image selected for update:", $scope.selectedTraining.img);
-    console.log("Sending update for training ID:", $scope.selectedTraining._id);
     console.log("FormData being sent:");
     formData.forEach((value, key) => {
       console.log(`${key}:`, value);

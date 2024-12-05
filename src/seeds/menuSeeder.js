@@ -65,7 +65,7 @@ async function seedMenuData() {
     ];
 
     await Menu.insertMany(menuData);
-    console.log("menu data seed work");
+    console.log("worked");
 
     mongoose.connection.close();
   } catch (error) {
