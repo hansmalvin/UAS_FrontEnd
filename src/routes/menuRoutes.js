@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
           ...menu.toObject(),
           img: {
             contentType: menu.img.contentType,
-            data: menu.img.data.toString("base64")
+            data: menu.img.data.toString("base64"),
           },
         };
       }

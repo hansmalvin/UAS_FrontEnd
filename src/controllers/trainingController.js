@@ -14,7 +14,7 @@ app.controller("TrainingController", function ($scope, $http) {
     description: "",
     link: "",
     img: null,
-    rating: 0, 
+    rating: 0,
   };
 
   $scope.getTrainings = function () {

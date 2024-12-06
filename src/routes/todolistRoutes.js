@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
-const ToDoList = require("../models/todoList-schema");
+const ToDoList = require("../models/todolist-schema");
 const Training = require("../models/training-schema");
 
 const validateObjectId = (req, res, next) => {
@@ -134,7 +134,7 @@ router.put("/:id", validateObjectId, async (req, res) => {
     );
 
     if (!updatedToDo) {
-      console.log("ToDo item not found for ID:", id); 
+      console.log("ToDo item not found for ID:", id);
       return res.status(404).json({ error: "ToDo item tidak ditemukan." });
     }
 

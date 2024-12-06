@@ -20,7 +20,9 @@ router.get("/", async (req, res) => {
     const idUser = req.session.user._id;
     const userMessages = await Contact.find({ idUser });
 
-    res.status(200).json({ message: "Messages retrieved successfully", data: userMessages });
+    res
+      .status(200)
+      .json({ message: "Messages retrieved successfully", data: userMessages });
   } catch (err) {
     console.error("Error retrieving messages:", err);
     res.status(500).json({ error: "Error retrieving messages" });
@@ -37,17 +39,23 @@ router.post("/", async (req, res) => {
     const idUser = req.session.user._id;
 
     if (!title || title.length < 3 || title.length > 100) {
-      return res.status(400).json({ error: "Title must be between 3 and 100 characters." });
+      return res
+        .status(400)
+        .json({ error: "Title must be between 3 and 100 characters." });
     }
 
     if (!message || message.length < 3 || message.length > 500) {
-      return res.status(400).json({ error: "Message must be between 3 and 500 characters." });
+      return res
+        .status(400)
+        .json({ error: "Message must be between 3 and 500 characters." });
     }
 
     const newMessage = new Contact({ title, message, idUser });
     await newMessage.save();
 
-    res.status(201).json({ message: "Message sent successfully", data: newMessage });
+    res
+      .status(201)
+      .json({ message: "Message sent successfully", data: newMessage });
   } catch (err) {
     console.error("Error creating message:", err);
     res.status(500).json({ error: "Error creating message" });
@@ -76,10 +84,16 @@ router.put("/:id", validateObjectId, async (req, res) => {
     const { message } = req.body;
 
     if (!message || message.length < 3 || message.length > 500) {
-      return res.status(400).json({ error: "Message must be between 3 and 500 characters." });
+      return res
+        .status(400)
+        .json({ error: "Message must be between 3 and 500 characters." });
     }
 
-    const updatedMessage = await Contact.findByIdAndUpdate(id, { message }, { new: true });
+    const updatedMessage = await Contact.findByIdAndUpdate(
+      id,
+      { message },
+      { new: true }
+    );
 
     if (!updatedMessage) {
       return res.status(404).json({ error: "Message not found" });
@@ -95,12 +109,16 @@ router.put("/:id", validateObjectId, async (req, res) => {
 router.get("/all", async (req, res) => {
   try {
     const allMessages = await Contact.find({});
-    res.status(200).json({ message: "All messages retrieved successfully", data: allMessages });
+    res
+      .status(200)
+      .json({
+        message: "All messages retrieved successfully",
+        data: allMessages,
+      });
   } catch (err) {
     console.error("Error retrieving all messages:", err);
     res.status(500).json({ error: "Error retrieving all messages" });
   }
 });
-
 
 module.exports = router;

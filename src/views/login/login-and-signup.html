@@ -53,7 +53,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <label for="confirmPassword" class="form-label"
+                  >Confirm Password</label
+                >
                 <input
                   type="password"
                   class="form-control"
@@ -104,32 +106,62 @@
               </p>
             </form>
           </div>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
             forgot password
           </button>
         </div>
       </div>
     </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
             <form ng-submit="forgotPassword()">
               <div class="mb-3">
                 <label for="forgot-email" class="form-label">Email</label>
-                <input type="email" class="form-control" ng-model="forgotPasswordData.email"
-                  placeholder="Enter your registered email" required />
+                <input
+                  type="email"
+                  class="form-control"
+                  ng-model="forgotPasswordData.email"
+                  placeholder="Enter your registered email"
+                  required
+                />
               </div>
               <div class="mb-3">
-                <label for="forgot-password" class="form-label">New Password</label>
-                <input type="password" class="form-control" ng-model="forgotPasswordData.newPassword"
-                  placeholder="Enter your new password" required />
+                <label for="forgot-password" class="form-label"
+                  >New Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  ng-model="forgotPasswordData.newPassword"
+                  placeholder="Enter your new password"
+                  required
+                />
               </div>
-              <button type="submit" class="btn btn-primary w-100">Reset Password</button>
+              <button type="submit" class="btn btn-primary w-100">
+                Reset Password
+              </button>
             </form>
           </div>
         </div>
@@ -140,4 +172,3 @@
     <script src="/authController.js"></script>
   </body>
 </html>
-

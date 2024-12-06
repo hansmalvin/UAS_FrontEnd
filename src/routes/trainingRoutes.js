@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
           ...training.toObject(),
           img: {
             contentType: training.img.contentType,
-            data: training.img.data.toString("base64"), 
+            data: training.img.data.toString("base64"),
           },
         };
       }
