@@ -14,23 +14,23 @@ app.controller("AuthController", function ($scope, $http) {
   };
 
   $scope.forgotPassword = function () {
-  const { email, newPassword } = $scope.forgotPasswordData;
+    const { email, newPassword } = $scope.forgotPasswordData;
 
-  if (!email || !newPassword) {
-    alert("Please fill in all fields.");
-    return;
-  }
+    if (!email || !newPassword) {
+      alert("Please fill in all fields.");
+      return;
+    }
 
-  $http
-    .post("/forgot-password", $scope.forgotPasswordData)
-    .then((response) => {
-      alert(response.data); 
-      $scope.forgotPasswordData = {}; 
-      window.location.href = "/login-and-signup";
-    })
-    .catch((error) => {
-      alert(error.data || "Error resetting password.");
-    });
+    $http
+      .post("/forgot-password", $scope.forgotPasswordData)
+      .then((response) => {
+        alert(response.data);
+        $scope.forgotPasswordData = {};
+        window.location.href = "/login-and-signup";
+      })
+      .catch((error) => {
+        alert(error.data || "Error resetting password.");
+      });
   };
 
   // Sign Up Function
@@ -39,9 +39,9 @@ app.controller("AuthController", function ($scope, $http) {
       alert("Passwords do not match");
       return;
     }
-    const signupData = { 
-      username: $scope.signupData.username, 
-      email: $scope.signupData.email, 
+    const signupData = {
+      username: $scope.signupData.username,
+      email: $scope.signupData.email,
       password: $scope.signupData.password,
       confirmPassword: $scope.signupData.confirmPassword,
     };
@@ -63,7 +63,7 @@ app.controller("AuthController", function ($scope, $http) {
       .then((response) => {
         alert(response.data);
         $scope.loginData = {};
-        window.location.href="/menu"
+        window.location.href = "/menu";
       })
       .catch((error) => {
         alert(error.data);

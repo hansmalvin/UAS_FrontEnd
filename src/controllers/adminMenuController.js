@@ -6,7 +6,7 @@ app.controller("MenuController", function ($scope, $http) {
     description: "",
     link: "",
     img: null,
-    rating: 0, 
+    rating: 0,
   };
 
   $scope.menus = [];
@@ -32,9 +32,7 @@ app.controller("MenuController", function ($scope, $http) {
         $scope.getMenus();
       })
       .catch((error) => {
-        alert(
-          `Error deleting menu: ${error.data.error || error.statusText}`
-        );
+        alert(`Error deleting menu: ${error.data.error || error.statusText}`);
       });
   };
 
@@ -97,9 +95,7 @@ app.controller("MenuController", function ($scope, $http) {
         $scope.getMenus();
       })
       .catch((error) => {
-        alert(
-          `Error updating menu: ${error.data.error || error.statusText}`
-        );
+        alert(`Error updating menu: ${error.data.error || error.statusText}`);
       });
   };
 
@@ -149,4 +145,3 @@ app.directive("fileModel", [
     };
   },
 ]);
-

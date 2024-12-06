@@ -1,30 +1,30 @@
 const app = angular.module("adminApp", []);
 
 app.controller("AdminController", function ($scope, $http) {
-    $scope.loginDataAdmin = {
-      email: "",
-      password: "",
-    };
-  
-    $scope.loginAdmin = function () {
-      $http
-        .post("/loginAdmin", $scope.loginDataAdmin)
-        .then((response) => {
-          alert("Login successful!");
-          window.location.href = "/adminDashboard";
-        })
-        .catch((error) => {
-          alert(error.data || "Invalid login credentials.");
-        });
-    };
-  });
+  $scope.loginDataAdmin = {
+    email: "",
+    password: "",
+  };
 
+  $scope.loginAdmin = function () {
+    $http
+      .post("/loginAdmin", $scope.loginDataAdmin)
+      .then((response) => {
+        alert("Login successful!");
+        window.location.href = "/adminDashboard";
+      })
+      .catch((error) => {
+        alert(error.data || "Invalid login credentials.");
+      });
+  };
+});
 
 app.controller("AdminDashboardController", function ($scope, $http) {
   $scope.searchQuery = "@";
   $scope.userMessages = [];
   $scope.getUsers = function () {
-    $http.get("/users")
+    $http
+      .get("/users")
       .then((response) => {
         $scope.users = response.data;
       })
@@ -34,7 +34,8 @@ app.controller("AdminDashboardController", function ($scope, $http) {
   };
 
   $scope.loadMessages = function () {
-    $http.get("/contacts/all")
+    $http
+      .get("/contacts/all")
       .then((response) => {
         $scope.userMessages = response.data.data;
       })
@@ -46,7 +47,8 @@ app.controller("AdminDashboardController", function ($scope, $http) {
 
   // Delete a message
   $scope.deleteMessage = function (id) {
-    $http.delete(`/contacts/${id}`)
+    $http
+      .delete(`/contacts/${id}`)
       .then((response) => {
         alert("Message deleted successfully!");
         $scope.loadMessages();
@@ -80,18 +82,22 @@ app.controller("AdminDashboardController", function ($scope, $http) {
 
     const query = $scope.searchQuery.toLowerCase();
     return $scope.users
-      .filter((user) =>
-        (user.username || "").toLowerCase().includes(query) ||
-        (user.email || "").toLowerCase().includes(query)
+      .filter(
+        (user) =>
+          (user.username || "").toLowerCase().includes(query) ||
+          (user.email || "").toLowerCase().includes(query)
       )
-      .sort((a, b) =>
-        $scope.calculateRelevance(a, query) - $scope.calculateRelevance(b, query)
+      .sort(
+        (a, b) =>
+          $scope.calculateRelevance(a, query) -
+          $scope.calculateRelevance(b, query)
       );
   };
-  
+
   // Delete user by admin
   $scope.deleteUser = function (userId) {
-    $http.delete(`/users/${userId}`)
+    $http
+      .delete(`/users/${userId}`)
       .then((response) => {
         alert("User deleted successfully");
         $scope.getUsers();
@@ -102,7 +108,8 @@ app.controller("AdminDashboardController", function ($scope, $http) {
   };
 
   $scope.logoutAdmin = function () {
-    $http.post("/logoutAdmin")
+    $http
+      .post("/logoutAdmin")
       .then(() => {
         alert("Logout successful!");
         window.location.href = "/Admin";
@@ -112,7 +119,7 @@ app.controller("AdminDashboardController", function ($scope, $http) {
         alert("Logout failed. Please try again.");
       });
   };
-  
+
   $scope.getUsers();
   $scope.loadMessages();
 });

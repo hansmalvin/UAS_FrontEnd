@@ -9,7 +9,11 @@ const rateLimit = require("express-rate-limit");
 require("dotenv").config();
 
 const staticRoute = require("./src/routes/route");
-const { signupValidators, loginValidators, forgotPasswordValidators,} = require("./src/validators/users-validator");
+const {
+  signupValidators,
+  loginValidators,
+  forgotPasswordValidators,
+} = require("./src/validators/users-validator");
 const User = require("./src/models/users-schema");
 
 const app = express();
@@ -18,13 +22,9 @@ const url = process.env.DB_CONNECTION;
 const origin = process.env.DB_URL;
 const dbColl = process.env.DB_COLLECTION;
 
-mongoose
-  .connect(url, {
-
-  })
-  .then((res) => {
-    console.log("mongodb Connected");
-  });
+mongoose.connect(url, {}).then((res) => {
+  console.log("mongodb Connected");
+});
 
 const store = new MongoDBSession({
   uri: url,
@@ -103,7 +103,7 @@ app.post("/signup", async (req, res) => {
       username,
       email,
       password: hashedPassword,
-    })
+    });
     await newUser.save();
 
     res.status(201).send("User created successfully");
@@ -299,7 +299,7 @@ app.use("/trainings", trainingRoutes);
 const todolistRoutes = require("./src/routes/todolistRoutes");
 app.use("/todolist", todolistRoutes);
 
-const menuRoutes = require("./src/routes/menuRoutes"); 
+const menuRoutes = require("./src/routes/menuRoutes");
 app.use("/menus", menuRoutes);
 
 const contactRoutes = require("./src/routes/contactRoutes");

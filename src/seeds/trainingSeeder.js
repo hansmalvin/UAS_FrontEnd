@@ -8,9 +8,7 @@ const url = process.env.DB_CONNECTION;
 
 async function seedTrainingData() {
   try {
-    await mongoose.connect(url, {
-
-    });
+    await mongoose.connect(url, {});
 
     console.log("Connected to Mongo");
 
@@ -21,7 +19,9 @@ async function seedTrainingData() {
       {
         title: "Deadlift",
         img: {
-          data: fs.readFileSync(path.join(__dirname, "../public/image/training1.jpg")),
+          data: fs.readFileSync(
+            path.join(__dirname, "../public/image/training1.jpg")
+          ),
           contentType: "image/jpg",
         },
         description: "Strength training for people that wants extreme strong",
@@ -31,17 +31,22 @@ async function seedTrainingData() {
       {
         title: "Pulldown back training",
         img: {
-          data: fs.readFileSync(path.join(__dirname, "../public/image/training2.jpg")),
+          data: fs.readFileSync(
+            path.join(__dirname, "../public/image/training2.jpg")
+          ),
           contentType: "image/jpg",
         },
-        description: "Hypertrophy training using pulldown machine for back workout",
+        description:
+          "Hypertrophy training using pulldown machine for back workout",
         rating: 1,
         link: "https://www.verywellfit.com/how-to-do-the-lat-pulldown-3498309",
       },
       {
         title: "Squat Leg training",
         img: {
-          data: fs.readFileSync(path.join(__dirname, "../public/image/training3.jpg")),
+          data: fs.readFileSync(
+            path.join(__dirname, "../public/image/training3.jpg")
+          ),
           contentType: "image/jpg",
         },
         description: "Hypertrophy training using Leg Squat Movements",
@@ -51,10 +56,13 @@ async function seedTrainingData() {
       {
         title: "Chest training",
         img: {
-          data: fs.readFileSync(path.join(__dirname, "../public/image/training4.jpg")),
+          data: fs.readFileSync(
+            path.join(__dirname, "../public/image/training4.jpg")
+          ),
           contentType: "image/jpg",
         },
-        description: "Hypertrophy training using incline bench press for chest growth",
+        description:
+          "Hypertrophy training using incline bench press for chest growth",
         rating: 1,
         link: "https://www.webmd.com/fitness-exercise/how-to-do-incline-bench-presses",
       },
